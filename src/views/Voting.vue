@@ -2,7 +2,6 @@
   <swiper
     :modules="modules"
     :slides-per-view="1"
-    :pagination="{ clickable: true }"
     class="pb-10 translate-y-3 w-full"
   >
     <swiper-slide v-for="categorie in categories">
@@ -41,7 +40,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { getCategories } from "../entities/categorie";
+import { Categorie, getCategories } from "../entities/categorie";
 
 export default {
   name: "Voting",
@@ -86,12 +85,12 @@ export default {
     };
   },
   methods: {
-    async fetchCategories() {
+    async fetchCategories(): Promise<void> {
       const categories = await getCategories();
       this.categories = categories;
     },
   },
-  created() {
+  created(): void {
     this.fetchCategories();
   },
 };

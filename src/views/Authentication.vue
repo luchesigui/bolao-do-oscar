@@ -37,7 +37,7 @@ export default {
     };
   },
   methods: {
-    login() {
+    login(): void {
       const userName = this.username.toLowerCase().replaceAll(" ", "-");
       if (userName) {
         localStorage.setItem("user", userName);
