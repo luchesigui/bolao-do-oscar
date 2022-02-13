@@ -3,7 +3,7 @@
     v-on:submit.prevent="login"
     class="h-full container flex flex-col justify-center px-2 text-center -translate-y-5"
   >
-    <img src="../assets/oscar.svg" class="max-w-xs mx-auto mb-24" />
+    <Logo class="max-w-xs mx-auto mb-24" />
     <h1 class="text-xl font-bold mb-2">Bolão do Oscar {{ currentYear }}</h1>
     <p class="mb-6">Digite seu nome e faça suas apostas</p>
     <input
@@ -22,9 +22,14 @@
 </template>
 
 <script lang="ts">
+import Logo from "../components/Logo.vue";
+
 export default {
   name: "Authentication",
   emits: ["login"],
+  components: {
+    Logo,
+  },
   data() {
     return {
       currentYear: new Date().getFullYear(),
