@@ -2,6 +2,7 @@
   <swiper
     :modules="modules"
     :slides-per-view="1"
+    :pagination="pagination"
     class="pb-10 translate-y-3 w-full"
   >
     <swiper-slide v-for="categorie in categories">
@@ -41,6 +42,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { Categorie, getCategories } from "../entities/categorie";
+import { MovieType } from "../entities/movie";
+
+interface Data {
+  pagination: any;
+  categories: Categorie[];
+  selectedNominees: { [key: string]: string };
+  traducoes: Map<string, string>;
+}
 
 export default {
   name: "Voting",
@@ -53,9 +62,12 @@ export default {
       modules: [Pagination],
     };
   },
-  data() {
+  data(): Data {
     return {
       selectedNominees: {},
+      pagination: {
+        clickable: true,
+      },
       categories: [],
       traducoes: new Map([
         ["Best Picture", "Melhor Filme"],

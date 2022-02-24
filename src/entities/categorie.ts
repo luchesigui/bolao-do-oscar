@@ -4,7 +4,7 @@ import { firebase as service } from "../service";
 export interface Categorie {
   id: string;
   name: string;
-  nominees: MovieType;
+  nominees: MovieType[];
   winner: string;
 }
 
