@@ -10,10 +10,10 @@
       <small class="block mb-5 italic">{{
         traducoes.get(categorie.name)
       }}</small>
-      <form>
+      <form @submit.prevent="() => voteForCategorie(categorie.name)">
         <div class="nominee" v-for="nominee in categorie.nominees">
           <label
-            class="block py-2 px-3 border border-stone-50 rounded my-2 focus:bg-[#fbb138] focus:text-black focus:font-bold focus:border-transparent transition-all"
+            class="cursor-pointer block py-2 px-3 border border-stone-50 rounded my-2 focus:bg-[#fbb138] focus:text-black focus:font-bold focus:border-transparent transition-all"
             v-bind:class="{
               'bg-[#fbb138] text-black font-bold border-transparent':
                 selectedNominees[categorie.name] === nominee.name,
@@ -29,6 +29,12 @@
             {{ nominee.name }}
           </label>
         </div>
+        <button
+          type="submit"
+          class="w-full mt-2 py-2 px-2 rounded bg-[#fbb138] uppercase tracking-widest font-bold"
+        >
+          Votar
+        </button>
       </form>
     </swiper-slide>
   </swiper>
@@ -43,8 +49,10 @@ import "swiper/css/pagination";
 
 import { Categorie, getCategories } from "../entities/categorie";
 import { MovieType } from "../entities/movie";
+import { VoteType, voteForNominee } from "../entities/vote";
 
 interface Data {
+  votes: VoteType[];
   pagination: any;
   categories: Categorie[];
   selectedNominees: { [key: string]: string };
@@ -64,6 +72,7 @@ export default {
   },
   data(): Data {
     return {
+      votes: [],
       selectedNominees: {},
       pagination: {
         clickable: true,
@@ -101,9 +110,52 @@ export default {
       const categories = await getCategories();
       this.categories = categories;
     },
+    async voteForCategorie(categoryName: string): Promise<void> {
+      const nominee = this.selectedNominees[categoryName];
+      const voteFromThisCategory = this.votes.find(
+        (vote: VoteType) => vote.category === categoryName
+      );
+
+      if (!voteFromThisCategory) {
+        const user = localStorage.getItem("user");
+        const currentVote: VoteType = {
+          category: categoryName,
+          nominee,
+          user,
+        };
+
+        const newVote = await voteForNominee(currentVote);
+        this.votes.push(newVote);
+      } else {
+        const newVote = await voteForNominee({
+          ...voteFromThisCategory,
+          nominee,
+        });
+
+        this.votes.map((vote: VoteType) => {
+          if (vote.category === categoryName) {
+            vote.nominee = newVote.nominee;
+          }
+        });
+      }
+
+      const stringfiedVotes = JSON.stringify(this.votes);
+      localStorage.setItem("votes", stringfiedVotes);
+    },
+    reloadLastVotes() {
+      const stringfiedVotes = localStorage.getItem("votes");
+      if (stringfiedVotes) {
+        const votes = JSON.parse(stringfiedVotes);
+        this.votes = votes;
+        votes.map((vote: VoteType) => {
+          this.selectedNominees[vote.category] = vote.nominee;
+        });
+      }
+    },
   },
   created(): void {
     this.fetchCategories();
+    this.reloadLastVotes();
   },
 };
 </script>

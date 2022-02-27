@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore/lite";
 import { Categories } from "./categories";
+import { Votes } from "./votes";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBZ7H8TR8uqdgj5PCEbHobiXwZDOlGp2KI",
@@ -17,4 +18,5 @@ const db = getFirestore(app);
 
 export default {
   categories: new Categories(db),
+  votes: new Votes(db),
 };
