@@ -7,7 +7,7 @@
       <Logo class="max-w-[180px] mx-auto mt-4" />
     </header>
     <main class="flex flex-1 items-center container">
-      <Voting />
+      <Voting v-if="isVotingOpen" />
     </main>
   </div>
   <Authentication v-else @login="loadUserFromLocalStorage" />
@@ -29,6 +29,9 @@ export default {
   data() {
     return {
       user: null,
+      currentDate: new Date(),
+      finishDate: new Date("2022-03-27 21:00:00"),
+      updateCurrDateInterval: null,
     };
   },
   methods: {
@@ -42,11 +45,42 @@ export default {
       localStorage.removeItem("user");
       this.user = null;
     },
+    removeInterval() {
+      if (this.updateCurrDateInterval) {
+        clearInterval(this.updateCurrDateInterval);
+      }
+    },
   },
   created() {
     this.loadUserFromLocalStorage();
   },
+  computed: {
+    isVotingOpen() {
+      return this.currentDate.getTime() < this.finishDate.getTime();
+    },
+  },
+  mounted() {
+    const finishDateTime = this.finishDate.getTime();
+    const currentDateTime = this.currentDate.getTime();
+    const diffBetweenDates = finishDateTime - currentDateTime;
+
+    const minutesToVotingFinish = parseInt(
+      (Math.abs(diffBetweenDates) / (1000 * 60)) % 60
+    );
+
+    if (minutesToVotingFinish > 0 && minutesToVotingFinish <= 5) {
+      this.updateCurrDateInterval = setInterval(() => {
+        this.currentDate = new Date();
+      }, 1000 * 60);
+    }
+  },
+  unmounted() {
+    this.removeInterval();
+  },
+  watch: {
+    isVotingOpen() {
+      this.removeInterval();
+    },
+  },
 };
 </script>
-
-<style></style>
