@@ -1,3 +1,4 @@
+import { useToast } from "vue-toastification";
 import { firebase as service } from "../service";
 
 export interface VoteType {
@@ -7,6 +8,11 @@ export interface VoteType {
   nominee: string;
 }
 
-export const voteForNominee = (vote: VoteType): Promise<VoteType> => {
-  return service.votes.voteForNominee(vote);
+export const voteForNominee = async (vote: VoteType): Promise<VoteType> => {
+  const voteRegistered = await service.votes.voteForNominee(vote);
+
+  const toast = useToast();
+  toast.success("Voto registrado com sucesso");
+
+  return voteRegistered;
 };
