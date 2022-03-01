@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "firebase": "^9.6.6",
-    "swiper": "^8.0.5",
+    "swiper": "^8.0.6",
     "uuid": "^8.3.2",
     "vue": "^3.2.25",
     "vue-toastification": "^2.0.0-rc.5"
