@@ -8,6 +8,7 @@
     </header>
     <main class="flex flex-1 items-center container">
       <Voting v-if="isVotingOpen" />
+      <Ranking v-else />
     </main>
   </div>
   <Authentication v-else @login="loadUserFromLocalStorage" />
@@ -17,6 +18,7 @@
 import Authentication from "./views/Authentication.vue";
 import Logo from "./components/Logo.vue";
 import Voting from "./views/Voting.vue";
+import Ranking from "./views/Ranking.vue";
 
 export default {
   name: "App",
@@ -25,12 +27,13 @@ export default {
     Authentication,
     Logo,
     Voting,
+    Ranking,
   },
   data() {
     return {
       user: null,
       currentDate: new Date(),
-      finishDate: new Date("2022-03-27 21:00:00"),
+      finishDate: new Date("2021-03-27 21:00:00"),
       updateCurrDateInterval: null,
     };
   },

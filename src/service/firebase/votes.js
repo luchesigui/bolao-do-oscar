@@ -1,9 +1,16 @@
-import { doc, setDoc } from "firebase/firestore/lite";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
 
 export class Votes {
   constructor(db) {
     this.db = db;
+  }
+
+  async getAll() {
+    const votesCollection = collection(this.db, "votes");
+    const votesSnapshot = await getDocs(votesCollection);
+    const votes = votesSnapshot.docs.map((doc) => doc.data());
+    return votes;
   }
 
   async voteForNominee(vote) {

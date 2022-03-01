@@ -16,3 +16,8 @@ export const voteForNominee = async (vote: VoteType): Promise<VoteType> => {
 
   return voteRegistered;
 };
+
+export const getVotes = async (): Promise<VoteType[]> => {
+  const votes = await service.votes.getAll();
+  return votes;
+};
