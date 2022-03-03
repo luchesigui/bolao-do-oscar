@@ -33,7 +33,7 @@ export default {
     return {
       user: null,
       currentDate: new Date(),
-      finishDate: new Date("2021-03-27 21:00:00"),
+      finishDate: new Date("2022-03-27 21:00:00"),
       updateCurrDateInterval: null,
     };
   },
