@@ -37,5 +37,31 @@ export const getPositions = async (): Promise<RankingType[]> => {
     }
   );
 
-  return positions;
+  const sortedPositions = positions.sort((a: RankingType, b: RankingType) => {
+    return a.user < b.user ? -1 : 1;
+  })
+  .sort((a: RankingType, b: RankingType) => {
+    return b.points - a.points;
+  });
+
+  for (let i = 0; i < sortedPositions.length; i++) {
+    let position = sortedPositions[i];
+
+    if(i === 0) {
+      sortedPositions[i].position = 1
+      continue
+    }
+
+    const previousPosition = sortedPositions[i - 1];
+    const previousPositionPosition = previousPosition.position;
+
+    if(position.points === previousPosition.points) {
+      sortedPositions[i].position = previousPositionPosition
+      continue
+    }
+
+    sortedPositions[i].position = previousPositionPosition + 1
+  }
+
+  return sortedPositions;
 };
