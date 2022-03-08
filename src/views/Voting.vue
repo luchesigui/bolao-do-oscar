@@ -50,9 +50,10 @@ import "swiper/css/pagination";
 
 import { Categorie, getCategories } from "../entities/categorie";
 import { MovieType } from "../entities/movie";
-import { VoteType, voteForNominee } from "../entities/vote";
+import { VoteType, voteForNominee, getUserVotes } from "../entities/vote";
 
 interface Data {
+  user: string;
   votes: VoteType[];
   pagination: any;
   categories: Categorie[];
@@ -73,6 +74,7 @@ export default {
   },
   data(): Data {
     return {
+      user: localStorage.getItem("user") || '',
       votes: [],
       selectedNominees: {},
       pagination: {
@@ -118,11 +120,10 @@ export default {
       );
 
       if (!voteFromThisCategory) {
-        const user = localStorage.getItem("user");
         const currentVote: VoteType = {
           category: categoryName,
           nominee,
-          user,
+          user: this.user,
         };
 
         const newVote = await voteForNominee(currentVote);
@@ -139,19 +140,18 @@ export default {
           }
         });
       }
-
-      const stringfiedVotes = JSON.stringify(this.votes);
-      localStorage.setItem("votes", stringfiedVotes);
     },
-    reloadLastVotes() {
+    async reloadLastVotes() {
       const stringfiedVotes = localStorage.getItem("votes");
-      if (stringfiedVotes) {
-        const votes = JSON.parse(stringfiedVotes);
-        this.votes = votes;
-        votes.map((vote: VoteType) => {
-          this.selectedNominees[vote.category] = vote.nominee;
-        });
-      }
+
+      const votes = stringfiedVotes
+        ? JSON.parse(stringfiedVotes)
+        : await getUserVotes(this.user);
+
+      this.votes = votes.map((vote: VoteType) => {
+        this.selectedNominees[vote.category] = vote.nominee;
+        return vote;
+      });
     },
     getIsVotingDisabled(categoryName: string): boolean {
       const selectedNominee = this.selectedNominees[categoryName];
@@ -172,6 +172,12 @@ export default {
 
       return !hasChangedVote;
     },
+  },
+  watch: {
+    votes: function (newVotes: VoteType[]) {
+      const stringfiedVotes = JSON.stringify(newVotes);
+      localStorage.setItem("votes", stringfiedVotes);
+    }
   },
   created(): void {
     this.fetchCategories();

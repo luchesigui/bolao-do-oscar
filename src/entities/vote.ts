@@ -21,3 +21,8 @@ export const getVotes = async (): Promise<VoteType[]> => {
   const votes = await service.votes.getAll();
   return votes;
 };
+
+export const getUserVotes = async (userName: VoteType['user']): Promise<VoteType[]> => {
+  const votes = await service.votes.getByUser(userName);
+  return votes;
+};

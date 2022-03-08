@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, setDoc } from "firebase/firestore/lite";
+import { collection, getDocs, doc, setDoc, query, where } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
 
 export class Votes {
@@ -9,6 +9,14 @@ export class Votes {
   async getAll() {
     const votesCollection = collection(this.db, "votes");
     const votesSnapshot = await getDocs(votesCollection);
+    const votes = votesSnapshot.docs.map((doc) => doc.data());
+    return votes;
+  }
+
+  async getByUser(userName) {
+    const votesCollection = collection(this.db, "votes");
+    const votesQuery = query(votesCollection, where("user", "==", userName))
+    const votesSnapshot = await getDocs(votesQuery);
     const votes = votesSnapshot.docs.map((doc) => doc.data());
     return votes;
   }
