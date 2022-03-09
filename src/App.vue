@@ -67,11 +67,9 @@ export default {
     const finishDateTime = this.finishDate.getTime();
     const currentDateTime = this.currentDate.getTime();
     const diffBetweenDates = finishDateTime - currentDateTime;
+    const minutesToVotingFinish = Math.round(Math.abs(diffBetweenDates) / (1000 * 60) % 60);
 
-    const minutesToVotingFinish: any = (Math.abs(diffBetweenDates) / (1000 * 60)) % 60
-    const minutesToVotingFinishInt = parseInt(minutesToVotingFinish);
-
-    if (minutesToVotingFinishInt > 0 && minutesToVotingFinishInt <= 5) {
+    if (minutesToVotingFinish > 0 && minutesToVotingFinish <= 5) {
       this.updateCurrDateInterval = setInterval(() => {
         this.currentDate = new Date();
       }, 1000 * 60);
