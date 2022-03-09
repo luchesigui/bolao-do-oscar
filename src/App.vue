@@ -20,8 +20,6 @@ import Logo from "./components/Logo.vue";
 import Voting from "./views/Voting.vue";
 import Ranking from "./views/Ranking.vue";
 
-type Data = string | number
-
 export default {
   name: "App",
   emits: ["login"],
