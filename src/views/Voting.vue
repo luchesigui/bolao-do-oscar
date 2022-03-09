@@ -119,31 +119,31 @@ export default {
         (vote: VoteType) => vote.category === categoryName
       );
 
-      if (!voteFromThisCategory) {
-        const currentVote: VoteType = {
-          category: categoryName,
-          nominee,
-          user: this.user,
-        };
-
-        const newVote = await voteForNominee(currentVote);
-        this.votes.push(newVote);
-      } else {
-        const newVote = await voteForNominee({
-          ...voteFromThisCategory,
-          nominee,
-        });
-
-        this.votes.map((vote: VoteType) => {
-          if (vote.category === categoryName) {
-            vote.nominee = newVote.nominee;
-          }
-        });
-      }
-
       if(this.user === 'admin') {
         const category = this.categories.find((category: Category) => category.name === categoryName);
         setCategoryWinner(category, nominee);
+      } else {
+        if (!voteFromThisCategory) {
+          const currentVote: VoteType = {
+            category: categoryName,
+            nominee,
+            user: this.user,
+          };
+
+          const newVote = await voteForNominee(currentVote);
+          this.votes.push(newVote);
+        } else {
+          const newVote = await voteForNominee({
+            ...voteFromThisCategory,
+            nominee,
+          });
+
+          this.votes.map((vote: VoteType) => {
+            if (vote.category === categoryName) {
+              vote.nominee = newVote.nominee;
+            }
+          });
+        }
       }
     },
     async reloadLastVotes() {
