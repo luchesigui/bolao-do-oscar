@@ -48,7 +48,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Categorie, getCategories } from "../entities/categorie";
+import { Categorie, getCategories, setCategoryWinner } from "../entities/categorie";
 import { MovieType } from "../entities/movie";
 import { VoteType, voteForNominee, getUserVotes } from "../entities/vote";
 
@@ -139,6 +139,11 @@ export default {
             vote.nominee = newVote.nominee;
           }
         });
+      }
+
+      if(this.user === 'admin') {
+        const category = this.categories.find((category: Categorie) => category.name === categoryName);
+        setCategoryWinner(category, nominee);
       }
     },
     async reloadLastVotes() {

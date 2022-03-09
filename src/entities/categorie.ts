@@ -11,3 +11,7 @@ export interface Categorie {
 export const getCategories = (): Promise<Categorie[]> => {
   return service.categories.getAll();
 };
+
+export const setCategoryWinner = (category: Categorie, winner: Categorie['winner']): Promise<Categorie[]> => {
+  return service.categories.setWinner(category, winner);
+};
