@@ -20,6 +20,8 @@ import Logo from "./components/Logo.vue";
 import Voting from "./views/Voting.vue";
 import Ranking from "./views/Ranking.vue";
 
+type Data = string | number
+
 export default {
   name: "App",
   emits: ["login"],
@@ -68,11 +70,10 @@ export default {
     const currentDateTime = this.currentDate.getTime();
     const diffBetweenDates = finishDateTime - currentDateTime;
 
-    const minutesToVotingFinish = parseInt(
-      (Math.abs(diffBetweenDates) / (1000 * 60)) % 60
-    );
+    const minutesToVotingFinish: any = (Math.abs(diffBetweenDates) / (1000 * 60)) % 60
+    const minutesToVotingFinishInt = parseInt(minutesToVotingFinish);
 
-    if (minutesToVotingFinish > 0 && minutesToVotingFinish <= 5) {
+    if (minutesToVotingFinishInt > 0 && minutesToVotingFinishInt <= 5) {
       this.updateCurrDateInterval = setInterval(() => {
         this.currentDate = new Date();
       }, 1000 * 60);
