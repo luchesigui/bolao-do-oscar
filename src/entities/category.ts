@@ -1,17 +1,17 @@
 import { MovieType } from "./movie";
 import { firebase as service } from "../service";
 
-export interface Categorie {
+export interface Category {
   id: string;
   name: string;
   nominees: MovieType[];
   winner: string;
 }
 
-export const getCategories = (): Promise<Categorie[]> => {
+export const getCategories = (): Promise<Category[]> => {
   return service.categories.getAll();
 };
 
-export const setCategoryWinner = (category: Categorie, winner: Categorie['winner']): Promise<Categorie[]> => {
+export const setCategoryWinner = (category: Category, winner: Category['winner']): Promise<Category[]> => {
   return service.categories.setWinner(category, winner);
 };

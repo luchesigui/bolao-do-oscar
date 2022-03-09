@@ -48,7 +48,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Categorie, getCategories, setCategoryWinner } from "../entities/categorie";
+import { Category, getCategories, setCategoryWinner } from "../entities/category";
 import { MovieType } from "../entities/movie";
 import { VoteType, voteForNominee, getUserVotes } from "../entities/vote";
 
@@ -56,7 +56,7 @@ interface Data {
   user: string;
   votes: VoteType[];
   pagination: any;
-  categories: Categorie[];
+  categories: Category[];
   selectedNominees: { [key: string]: string };
   traducoes: Map<string, string>;
 }
@@ -142,7 +142,7 @@ export default {
       }
 
       if(this.user === 'admin') {
-        const category = this.categories.find((category: Categorie) => category.name === categoryName);
+        const category = this.categories.find((category: Category) => category.name === categoryName);
         setCategoryWinner(category, nominee);
       }
     },
