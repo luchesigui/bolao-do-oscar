@@ -60,7 +60,8 @@ export default {
   },
   computed: {
     isVotingOpen() {
-      return this.currentDate.getTime() < this.finishDate.getTime();
+      const isAdmin = this.user === "admin";
+      return isAdmin || this.currentDate.getTime() < this.finishDate.getTime();
     },
   },
   mounted() {
