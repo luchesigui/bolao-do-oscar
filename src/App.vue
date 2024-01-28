@@ -1,4 +1,5 @@
 <template>
+  <router-view />
   <div v-if="user" class="h-full flex flex-col">
     <header class="text-center">
       <button class="text-sm mx-auto w-fit px-9 py-2" @click="logout">
@@ -15,10 +16,10 @@
 </template>
 
 <script lang="ts">
-import Authentication from "./views/Authentication.vue";
 import Logo from "./components/Logo.vue";
-import Voting from "./views/Voting.vue";
+import Authentication from "./views/Authentication.vue";
 import Ranking from "./views/Ranking.vue";
+import Voting from "./views/Voting.vue";
 
 export default {
   name: "App",
@@ -33,7 +34,7 @@ export default {
     return {
       user: null,
       currentDate: new Date(),
-      finishDate: new Date(2021, 3, 27, 21, 0, 0),
+      finishDate: new Date(2024, 3, 27, 21, 0, 0),
       updateCurrDateInterval: null,
     };
   },

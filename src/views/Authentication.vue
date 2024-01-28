@@ -1,49 +1,61 @@
-<template>
-  <form
-    v-on:submit.prevent="login"
-    class="h-full container flex flex-col justify-center px-2 text-center -translate-y-5"
-  >
-    <Logo class="max-w-xs mx-auto mb-24" />
-    <h1 class="text-xl font-bold mb-2">Bolão do Oscar {{ currentYear }}</h1>
-    <p class="mb-6">Digite seu nome e faça suas apostas</p>
-    <input
-      class="h-10 w-9/12 px-4 mx-auto mt-5 rounded-full text-gray-900 placeholder-gray-400"
-      type="text"
-      v-model="username"
-      placeholder="Nome"
-    />
-    <button
-      type="submit"
-      class="border border-white rounded-full mt-5 mx-auto w-fit px-9 py-2"
-    >
-      Entrar
-    </button>
-  </form>
-</template>
+<script lang="ts" setup>
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { defineEmits } from "vue";
 
-<script lang="ts">
 import Logo from "../components/Logo.vue";
 
-export default {
-  name: "Authentication",
-  emits: ["login"],
-  components: {
-    Logo,
-  },
-  data() {
-    return {
-      currentYear: new Date().getFullYear(),
-      username: "",
-    };
-  },
-  methods: {
-    login(): void {
-      const userName = this.username.toLowerCase().replaceAll(" ", "-");
-      if (userName) {
-        localStorage.setItem("user", userName);
-        this.$emit("login");
-      }
-    },
-  },
-};
+const emit = defineEmits(["login"]);
+
+const currentYear = new Date().getFullYear();
+
+function login(values) {
+  createUserWithEmailAndPassword(getAuth(), values.username, values.password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      localStorage.setItem("user", JSON.stringify(user));
+      emit("login");
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
+}
 </script>
+
+<template>
+  <Logo class="max-w-xs mx-auto mb-24" />
+  <h1 class="text-xl font-bold mb-2">Bolão do Oscar {{ currentYear }}</h1>
+  <p class="mb-6">Digite seu nome e faça suas apostas</p>
+  <FormKit
+    type="form"
+    @submit="login"
+    submit-label="Entrar"
+    :config="{
+      validationVisibility: 'submit',
+      incompleteMessage: false,
+    }"
+  >
+    <FormKit
+      class="h-10 w-9/12 px-4 mx-auto mt-5 rounded-full text-gray-900 placeholder-gray-400"
+      type="email"
+      name="username"
+      placeholder="Username"
+      validation="required|email"
+      :validation-messages="{
+        required: 'Username é obrigatório',
+        email: 'Username precisa ser um e-mail',
+      }"
+    />
+    <FormKit
+      class="h-10 w-9/12 px-4 mx-auto mt-5 rounded-full text-gray-900 placeholder-gray-400"
+      type="password"
+      name="password"
+      placeholder="Senha"
+      validation="required"
+      :validation-messages="{
+        required: 'Senha é obrigatória',
+      }"
+    />
+  </FormKit>
+</template>

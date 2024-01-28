@@ -8,10 +8,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@braid/vue-formulate": "^2.5.3",
+    "@formkit/vue": "^1.5.2",
+    "@vueform/vueform": "^1.7.1",
     "firebase": "^9.6.6",
     "swiper": "^8.0.6",
     "uuid": "^8.3.2",
-    "vue": "^3.2.25",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5",
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {

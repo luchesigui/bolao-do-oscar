@@ -1,5 +1,9 @@
 module.exports = {
-  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+    "formkit.theme.ts",
+  ],
   theme: {
     fontFamily: {
       sans: ["Montserrat", "sans-serif"],
