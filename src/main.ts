@@ -1,6 +1,5 @@
 import { defaultConfig, plugin } from "@formkit/vue";
 import { createApp } from "vue";
-import { createRouter, createWebHistory } from "vue-router";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
@@ -8,14 +7,7 @@ import customFormConfig from "../formkit.config";
 
 import App from "./App.vue";
 import "./index.css";
-import Home from "./views/Home.vue";
-
-const routes = [{ path: "/", component: Home }];
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+import { router } from "./router";
 
 const app = createApp(App);
 
