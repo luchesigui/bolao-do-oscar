@@ -1,25 +1,20 @@
 <script lang="ts" setup>
-import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
-import { defineEmits } from "vue";
+import { LoginData, useUserStore } from "../stores/user";
 
+import { useRouter } from "vue-router";
 import Logo from "../components/Logo.vue";
 
-const emit = defineEmits(["login"]);
-
 const currentYear = new Date().getFullYear();
+const userStore = useUserStore();
+const router = useRouter();
 
-function login(values) {
-  signInWithEmailAndPassword(getAuth(), values.username, values.password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      localStorage.setItem("user", JSON.stringify(user));
-      emit("login");
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-    });
+async function login(values: LoginData) {
+  try {
+    await userStore.logIn(values);
+    router.push("/");
+  } catch (error) {
+    console.log(error);
+  }
 }
 </script>
 

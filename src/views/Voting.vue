@@ -3,7 +3,7 @@
     :modules="modules"
     :slides-per-view="1"
     :pagination="pagination"
-    class="pb-10 translate-y-3 w-full"
+    class="container pb-10 translate-y-3 w-full"
   >
     <swiper-slide v-for="categorie in categories">
       <h1 class="text-xl font-bold">{{ categorie.name }}</h1>
@@ -48,9 +48,12 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Category, getCategories, setCategoryWinner } from "../entities/category";
-import { MovieType } from "../entities/movie";
-import { VoteType, voteForNominee, getUserVotes } from "../entities/vote";
+import {
+  Category,
+  getCategories,
+  setCategoryWinner,
+} from "../entities/category";
+import { VoteType, getUserVotes, voteForNominee } from "../entities/vote";
 
 interface Data {
   user: string;
@@ -74,7 +77,7 @@ export default {
   },
   data(): Data {
     return {
-      user: localStorage.getItem("user") || '',
+      user: localStorage.getItem("user") || "",
       votes: [],
       selectedNominees: {},
       pagination: {
@@ -119,8 +122,10 @@ export default {
         (vote: VoteType) => vote.category === categoryName
       );
 
-      if(this.user === 'admin') {
-        const category = this.categories.find((category: Category) => category.name === categoryName);
+      if (this.user === "admin") {
+        const category = this.categories.find(
+          (category: Category) => category.name === categoryName
+        );
         setCategoryWinner(category, nominee);
       } else {
         if (!voteFromThisCategory) {
@@ -182,7 +187,7 @@ export default {
     votes: function (newVotes: VoteType[]) {
       const stringfiedVotes = JSON.stringify(newVotes);
       localStorage.setItem("votes", stringfiedVotes);
-    }
+    },
   },
   created(): void {
     this.fetchCategories();

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full">
+  <div class="container flex flex-col w-full">
     <img src="../assets/award.svg" alt="Award" class="max-w-[320px] mx-auto" />
     <h1 class="text-xl text-center mt-6 mb-4">Ranking</h1>
 
@@ -17,7 +17,9 @@
           {{ position.position }}
         </div>
         <div class="px-3 py-1 border-x flex-1">{{ position.user }}</div>
-        <div class="px-3 py-1 min-w-[100px] text-center">{{ position.points }} {{ position.points <= 1 ? 'ponto' : 'pontos' }}</div>
+        <div class="px-3 py-1 min-w-[100px] text-center">
+          {{ position.points }} {{ position.points <= 1 ? "ponto" : "pontos" }}
+        </div>
       </div>
     </div>
   </div>

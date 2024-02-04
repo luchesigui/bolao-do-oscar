@@ -1,25 +1,18 @@
 <script lang="ts" setup>
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { defineEmits } from "vue";
+import { useUserStore, type LoginData } from "../stores";
 
 import Logo from "../components/Logo.vue";
 
-const emit = defineEmits(["login"]);
+const userStore = useUserStore();
 
 const currentYear = new Date().getFullYear();
 
-function login(values) {
-  createUserWithEmailAndPassword(getAuth(), values.username, values.password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      localStorage.setItem("user", JSON.stringify(user));
-      emit("login");
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-    });
+async function login(values: LoginData) {
+  try {
+    await userStore.logIn(values);
+  } catch (error) {
+    console.log(error);
+  }
 }
 </script>
 
@@ -76,7 +69,7 @@ function login(values) {
 
       <FormKit
         type="submit"
-        label="Entrar"
+        label="Cadastrar"
         :classes="{
           outer: {
             'max-w-\[20em\]': false,
