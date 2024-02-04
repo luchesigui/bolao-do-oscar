@@ -2,7 +2,6 @@
 import { LoginData, useUserStore } from "../stores/user";
 
 import { useRouter } from "vue-router";
-import Logo from "../components/Logo.vue";
 
 const currentYear = new Date().getFullYear();
 const userStore = useUserStore();
@@ -19,7 +18,6 @@ async function login(values: LoginData) {
 </script>
 
 <template>
-  <Logo class="max-w-xs mx-auto mb-20" />
   <div class="container">
     <div class="text-center mb-10">
       <h1 class="text-xl font-bold mb-2">Bolão do Oscar {{ currentYear }}</h1>
@@ -84,9 +82,9 @@ async function login(values: LoginData) {
       />
     </FormKit>
 
-    <hr />
+    <hr class="my-8 mx-auto max-w-[50%]" />
 
-    <div class="text-center mt-10">
+    <div class="text-center mb-4">
       <p class="text-sm">
         Não tem uma conta? <router-link to="/cadastro">Cadastre-se</router-link>
       </p>

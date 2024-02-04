@@ -3,3 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.main {
+  min-height: calc(100% - 6.3rem);
+}

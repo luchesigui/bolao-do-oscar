@@ -1,8 +1,20 @@
 <template>
-  <div class="h-full">
-    <header class="container flex justify-between items-center py-4">
-      <router-link to="/">
-        <Logo class="max-w-[180px]" />
+  <div
+    class="min-h-screen flex flex-col"
+    :class="userStore.isSignedIn ? '' : 'justify-center'"
+  >
+    <header
+      class="container flex justify-between items-center mb-10 sm:mt-5"
+      :class="userStore.isSignedIn ? 'flex-col sm:flex-row' : ''"
+    >
+      <router-link to="/" class="flex-1">
+        <Logo
+          :class="
+            userStore.isSignedIn
+              ? 'max-w-[180px] my-6 sm:my-0'
+              : 'sm:max-w-[180px]'
+          "
+        />
       </router-link>
       <div v-if="userStore.isSignedIn" class="flex justify-start items-center">
         <nav>
@@ -18,18 +30,18 @@
             </li>
           </ul>
         </nav>
-        <button
-          class="text-md mx-auto w-fit px-9 py-2 lg:mx-4 lg:p-0"
-          @click="userStore.signOut"
-        >
+        <button class="text-md w-fit ml-4" @click="userStore.signOut">
           Logout
         </button>
       </div>
-      <div v-else>
+      <div class="hidden sm:block" v-else>
         <router-link to="/login">Login</router-link>
       </div>
     </header>
-    <main class="flex flex-col justify-center">
+    <main
+      class="flex sm:flex-1 flex-col justify-center"
+      :class="userStore.isSignedIn ? 'flex-1' : 'sm:flex-1'"
+    >
       <router-view />
     </main>
   </div>
