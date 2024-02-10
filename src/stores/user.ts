@@ -1,12 +1,12 @@
 import {
   User,
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { defineStore } from "pinia";
 import { router } from "../router";
+import { authService } from "../service/auth";
 import { auth } from "../service/firebase";
 
 export type LoginData = {
@@ -29,11 +29,7 @@ export const useUserStore = defineStore("user", {
   },
   actions: {
     async register({ username, password }: LoginData) {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        username,
-        password
-      );
+      const response = await authService.signUp(username, password);
 
       if (response) {
         this.user = response.user;
