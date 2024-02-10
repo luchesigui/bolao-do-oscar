@@ -5,9 +5,9 @@ const userStore = useUserStore();
 
 const currentYear = new Date().getFullYear();
 
-async function login(values: LoginData) {
+async function register(values: LoginData) {
   try {
-    await userStore.logIn(values);
+    await userStore.register(values);
   } catch (error) {
     console.log(error);
   }
@@ -24,7 +24,7 @@ async function login(values: LoginData) {
     <FormKit
       type="form"
       className="w-full"
-      @submit="login"
+      @submit="register"
       submit-label="Entrar"
       :actions="false"
       :config="{

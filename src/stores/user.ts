@@ -37,6 +37,7 @@ export const useUserStore = defineStore("user", {
 
       if (response) {
         this.user = response.user;
+        router.push("/");
       } else {
         throw new Error("Unable to register user");
       }
