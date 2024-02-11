@@ -1,9 +1,4 @@
-import {
-  User,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import { User, onAuthStateChanged, signOut } from "firebase/auth";
 import { defineStore } from "pinia";
 import { router } from "../router";
 import { authService } from "../service/auth";
@@ -39,11 +34,7 @@ export const useUserStore = defineStore("user", {
       }
     },
     async logIn({ username, password }: LoginData) {
-      const response = await signInWithEmailAndPassword(
-        auth,
-        username,
-        password
-      );
+      const response = await authService.signIn(username, password);
 
       if (response) {
         this.user = response.user;

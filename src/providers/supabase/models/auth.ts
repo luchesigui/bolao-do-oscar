@@ -14,4 +14,21 @@ export const auth = {
 
     return data;
   },
+  async signIn(email: string, password: string) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.error("Error signing in:", error);
+
+      return {
+        user: null,
+        session: null,
+      };
+    }
+
+    return data;
+  },
 };
