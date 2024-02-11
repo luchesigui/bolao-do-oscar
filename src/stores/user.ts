@@ -1,8 +1,7 @@
-import { User, onAuthStateChanged } from "firebase/auth";
+import { User } from "firebase/auth";
 import { defineStore } from "pinia";
 import { router } from "../router";
 import { authService } from "../service/auth";
-import { auth } from "../service/firebase";
 
 export type LoginData = {
   username: string;
@@ -48,16 +47,14 @@ export const useUserStore = defineStore("user", {
       router.push("/login");
     },
     async getCurrentUser() {
-      return new Promise((resolve, reject) => {
-        const unsubscribe = onAuthStateChanged(
-          auth,
-          (user) => {
-            unsubscribe();
+      return new Promise((resolve) => {
+        authService.onAuthStateChange((user) => {
+          if (user) {
             this.user = user;
-            resolve(user);
-          },
-          reject
-        );
+          }
+
+          resolve(user);
+        });
       });
     },
   },
