@@ -1,7 +1,7 @@
-import { auth as authProvider } from "../../providers/supabase";
+import { supabaseProvider as provider } from "../../providers/supabase";
 
 export const authService = {
   async signUp(email: string, password: string) {
-    return authProvider.signUp(email, password);
+    return provider.auth.signUp(email, password);
   },
 };
