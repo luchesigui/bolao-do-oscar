@@ -1,4 +1,4 @@
-import { User, onAuthStateChanged, signOut } from "firebase/auth";
+import { User, onAuthStateChanged } from "firebase/auth";
 import { defineStore } from "pinia";
 import { router } from "../router";
 import { authService } from "../service/auth";
@@ -43,10 +43,9 @@ export const useUserStore = defineStore("user", {
       }
     },
     async signOut() {
-      await signOut(auth);
+      await authService.signOut();
       this.user = null;
       router.push("/login");
-      localStorage.removeItem("user");
     },
     async getCurrentUser() {
       return new Promise((resolve, reject) => {

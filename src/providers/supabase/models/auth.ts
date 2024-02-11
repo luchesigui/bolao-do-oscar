@@ -31,4 +31,7 @@ export const auth = {
 
     return data;
   },
+  async signOut() {
+    await supabase.auth.signOut();
+  },
 };

@@ -7,4 +7,7 @@ export const authService = {
   async signIn(email: string, password: string) {
     return provider.auth.signIn(email, password);
   },
+  async signOut() {
+    return provider.auth.signOut();
+  },
 };
