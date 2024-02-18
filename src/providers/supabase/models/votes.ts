@@ -1,0 +1,32 @@
+import { User } from "@supabase/supabase-js";
+import { Vote } from "../../../types/vote.type";
+
+import { supabase } from "../client";
+
+export const votes = {
+  async registerVote(vote: Vote) {
+    const { data, error } = await supabase.from("votes").upsert({
+      ...vote,
+      event: 1,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  },
+  async getUserVotes(userId: User["id"]) {
+    const { data, error } = await supabase
+      .from("votes")
+      .select("id, nominee, category")
+      .eq("event", "1")
+      .eq("user", userId);
+
+    if (error) {
+      throw error;
+    }
+
+    return data as unknown as Vote[];
+  },
+};

@@ -1,4 +1,4 @@
-import { User } from "firebase/auth";
+import { User } from "@supabase/supabase-js";
 import { defineStore } from "pinia";
 import { router } from "../router";
 import { authService } from "../service/auth";
