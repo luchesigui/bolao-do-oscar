@@ -14,7 +14,7 @@
     "@vueform/vueform": "^1.7.1",
     "firebase": "^9.6.6",
     "pinia": "^2.1.7",
-    "swiper": "^8.0.6",
+    "swiper": "^8.4.7",
     "uuid": "^8.3.2",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
