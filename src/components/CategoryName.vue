@@ -12,7 +12,7 @@ type CategoryNameProps = {
   categoryName: Category["name"];
 };
 
-const props = defineProps<CategoryNameProps>();
+const { categoryName } = defineProps<CategoryNameProps>();
 
 const traducoes = new Map([
   ["Best Picture", "Melhor Filme"],
@@ -41,6 +41,6 @@ const traducoes = new Map([
 ]);
 
 const translatedCategoryName = computed(() => {
-  return traducoes.get(props.categoryName);
+  return traducoes.get(categoryName);
 });
 </script>

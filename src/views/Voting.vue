@@ -37,14 +37,13 @@
 </template>
 
 <script lang="ts" setup>
-import { Pagination } from "swiper";
+import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { onMounted, reactive, ref } from "vue";
 import { useToast } from "vue-toastification";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import type { PaginationOptions } from "swiper/types";
 
 import CategoryName from "../components/CategoryName.vue";
 import { categoryService, voteService } from "../service";
@@ -55,7 +54,7 @@ const { user } = useUserStore();
 const toast = useToast();
 
 const modules = [Pagination];
-const swiperOptions: PaginationOptions = {
+const swiperOptions = {
   clickable: true,
 };
 

@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { getPositions } from "../entities/ranking";
 
 export default {
