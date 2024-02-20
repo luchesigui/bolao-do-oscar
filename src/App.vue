@@ -39,7 +39,7 @@
       </div>
     </header>
     <main
-      class="flex sm:flex-1 flex-col justify-center"
+      class="flex sm:flex-1 flex-col"
       :class="userStore.isSignedIn ? 'flex-1' : 'sm:flex-1'"
     >
       <router-view />

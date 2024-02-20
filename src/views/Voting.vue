@@ -26,7 +26,7 @@
 
           <button
             type="submit"
-            class="w-full mt-2 py-2 px-2 rounded bg-[#fbb138] uppercase tracking-widest font-bold disabled:bg-zinc-600 disabled:border disabled:border-zinc-900 disabled:text-zinc-400"
+            class="w-full mt-2 mb-10 py-2 px-2 rounded bg-[#fbb138] uppercase tracking-widest font-bold disabled:bg-zinc-600 disabled:border disabled:border-zinc-900 disabled:text-zinc-400"
           >
             Votar
           </button>
