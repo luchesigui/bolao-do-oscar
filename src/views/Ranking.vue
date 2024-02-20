@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { getPositions } from "../entities/ranking";
+import { rankingService } from "../service";
 
 export default {
   name: "Ranking",
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     async loadPositions() {
-      const positions = await getPositions();
+      const positions = await rankingService.getPositions();
       this.positions = positions;
     },
   },

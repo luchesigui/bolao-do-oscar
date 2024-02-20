@@ -9,4 +9,7 @@ export const voteService = {
   getUserVotes: async (userId: User["id"]) => {
     return provider.votes.getUserVotes(userId);
   },
+  getAll: async () => {
+    return provider.votes.getAll();
+  },
 };
