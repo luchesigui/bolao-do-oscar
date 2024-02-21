@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { useUserStore, type LoginData } from "../stores";
+import { SignUpData, useUserStore } from "../stores";
 
 const userStore = useUserStore();
 
 const currentYear = new Date().getFullYear();
 
-async function register(values: LoginData) {
+async function register(values: SignUpData) {
   try {
     await userStore.register(values);
   } catch (error) {
@@ -37,6 +37,18 @@ async function register(values: LoginData) {
         },
       }"
     >
+      <FormKit
+        type="text"
+        name="name"
+        placeholder="Seu nome"
+        validation="required"
+        :outer-class="{
+          'max-w-[20em]': false,
+        }"
+        :validation-messages="{
+          required: 'Nome é obrigatório',
+        }"
+      />
       <FormKit
         type="email"
         name="username"

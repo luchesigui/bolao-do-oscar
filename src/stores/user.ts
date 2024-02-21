@@ -8,6 +8,10 @@ export type LoginData = {
   password: string;
 };
 
+export type SignUpData = LoginData & {
+  name: string;
+};
+
 type UserState = {
   user: User | null;
 };
@@ -22,8 +26,8 @@ export const useUserStore = defineStore("user", {
     },
   },
   actions: {
-    async register({ username, password }: LoginData) {
-      const response = await authService.signUp(username, password);
+    async register(signUpData: SignUpData) {
+      const response = await authService.signUp(signUpData);
 
       if (response) {
         this.user = response.user;
