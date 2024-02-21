@@ -31,7 +31,7 @@ export const useUserStore = defineStore("user", {
 
       if (response) {
         this.user = response.user;
-        router.push("/");
+        router.push("/votacao");
       } else {
         throw new Error("Unable to register user");
       }
@@ -41,6 +41,7 @@ export const useUserStore = defineStore("user", {
 
       if (response) {
         this.user = response.user;
+        router.push("/votacao");
       } else {
         throw new Error("login failed");
       }
