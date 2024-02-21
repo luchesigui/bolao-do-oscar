@@ -1,16 +1,12 @@
 <script lang="ts" setup>
 import { LoginData, useUserStore } from "../stores/user";
 
-import { useRouter } from "vue-router";
-
 const currentYear = new Date().getFullYear();
 const userStore = useUserStore();
-const router = useRouter();
 
 async function login(values: LoginData) {
   try {
     await userStore.logIn(values);
-    router.push("/");
   } catch (error) {
     console.log(error);
   }
