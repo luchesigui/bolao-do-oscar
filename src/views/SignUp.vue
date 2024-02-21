@@ -52,14 +52,14 @@ async function register(values: SignUpData) {
       <FormKit
         type="email"
         name="username"
-        placeholder="Username"
+        placeholder="E-mail"
         validation="required|email"
         :outer-class="{
           'max-w-[20em]': false,
         }"
         :validation-messages="{
-          required: 'Username é obrigatório',
-          email: 'Username precisa ser um e-mail',
+          required: 'E-mail é obrigatório',
+          email: 'Este campo precisa ser um e-mail',
         }"
       />
 
