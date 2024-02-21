@@ -1,5 +1,5 @@
-import { User } from "@supabase/supabase-js";
-import { Vote } from "../../../types/vote.type";
+import { User } from "../../../types/user.type";
+import { Vote, VoteWithUser } from "../../../types/vote.type";
 
 import { supabase } from "../client";
 
@@ -32,13 +32,13 @@ export const votes = {
   async getAll() {
     const { data, error } = await supabase
       .from("votes")
-      .select("id, nominee, category, user")
+      .select("id, nominee, category, user(id, name)")
       .eq("event", "1");
 
     if (error) {
       throw error;
     }
 
-    return data as unknown as Vote[];
+    return data as unknown as VoteWithUser[];
   },
 };

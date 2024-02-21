@@ -1,5 +1,5 @@
-import { User } from "@supabase/supabase-js";
 import { supabaseProvider as provider } from "../../providers/supabase";
+import type { User } from "../../types/user.type";
 import type { Vote } from "../../types/vote.type";
 
 export const voteService = {

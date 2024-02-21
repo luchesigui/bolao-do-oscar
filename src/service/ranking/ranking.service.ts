@@ -1,4 +1,5 @@
 import { Ranking } from "../../types";
+import { User } from "../../types/user.type";
 import { categoryService } from "../categories";
 import { voteService } from "../votes";
 
@@ -9,26 +10,36 @@ export const rankingService = {
       voteService.getAll(),
     ]);
 
-    const categoryWinners = categories.map((category) => category.winner);
-    const voteUsers = votes.map((vote) => vote.user);
-    const participants = [...new Set(voteUsers)];
+    const categoryWinners = new Set(
+      categories.map((category) => category.winner)
+    );
 
-    const positions = participants.map(
-      (participant: string, index: number): Ranking => {
+    const participants = votes.reduce((acc, vote) => {
+      if (acc.has(vote.user.id)) {
+        return acc;
+      }
+
+      return acc.set(vote.user.id, vote.user);
+    }, new Map<User["id"], User>([]));
+
+    const positions = Array.from(participants.values()).map(
+      (participant, index): Ranking => {
         const votesByParticipant = votes.filter(
-          (vote) => vote.user === participant
+          (vote) => vote.user.id === participant.id
         );
-
-        const points = votesByParticipant.reduce((acc, vote) => {
-          const categoryWinner = categoryWinners.find(
-            (winner) => winner === vote.nominee
-          );
-          return categoryWinner ? acc + 1 : acc;
-        }, 0);
+        const points = votesByParticipant.reduce(
+          (acc, vote) =>
+            categoryWinners.has(
+              typeof vote.nominee === "number" ? vote.nominee : vote.nominee.id
+            )
+              ? acc + 1
+              : acc,
+          0
+        );
 
         return {
           position: index,
-          user: participant,
+          user: participant.name,
           points,
         };
       }
@@ -36,23 +47,15 @@ export const rankingService = {
 
     const sortedPositions = rankingService.sortPositions(positions);
 
+    let currentPosition = 1;
     for (let i = 0; i < sortedPositions.length; i++) {
-      let position = sortedPositions[i];
-
-      if (i === 0) {
-        sortedPositions[i].position = 1;
-        continue;
+      if (
+        i > 0 &&
+        sortedPositions[i].points !== sortedPositions[i - 1].points
+      ) {
+        currentPosition++;
       }
-
-      const previousPosition = sortedPositions[i - 1];
-      const previousPositionPosition = previousPosition.position;
-
-      if (position.points === previousPosition.points) {
-        sortedPositions[i].position = previousPositionPosition;
-        continue;
-      }
-
-      sortedPositions[i].position = previousPositionPosition + 1;
+      sortedPositions[i].position = currentPosition;
     }
 
     return sortedPositions;
