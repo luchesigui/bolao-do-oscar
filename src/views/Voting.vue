@@ -7,7 +7,7 @@
         <form @submit.prevent="() => voteForCategory(category.id)">
           <div class="nominee" v-for="nominee in category.nominees">
             <label
-              class="cursor-pointer block py-2 px-3 border border-stone-50 rounded my-2 focus:bg-[#fbb138] focus:text-black focus:font-bold focus:border-transparent transition-all"
+              class="flex cursor-pointer block py-2 px-3 border border-stone-50 rounded my-2 focus:bg-[#fbb138] focus:text-black focus:font-bold focus:border-transparent transition-all"
               v-bind:class="{
                 'bg-[#fbb138] text-black font-bold border-transparent':
                   selectedNominees[category.id] === nominee.movie.id,
@@ -18,9 +18,14 @@
                 name="nominee"
                 :value="nominee.id"
                 v-model="selectedNominees[category.id]"
-                class="mr-2"
+                class="mr-3"
               />
-              {{ nominee.movie.name }}
+
+              <div class="inline-flex flex-col" v-if="nominee.name">
+                {{ nominee.name }}
+                <small class="italic">{{ nominee.movie.name }}</small>
+              </div>
+              <span v-else>{{ nominee.movie.name }}</span>
             </label>
           </div>
 
