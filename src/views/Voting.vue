@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <swiper :modules="modules" :slides-per-view="1" :pagination="swiperOptions">
+    <swiper
+      :modules="modules"
+      :slides-per-view="1"
+      :pagination="paginationOptions"
+      @swiper="onSwiper"
+    >
       <swiper-slide v-for="category in categoriesWithNominees">
         <category-name :category-name="category.name" />
 
@@ -59,13 +64,29 @@ const { user } = useUserStore();
 const toast = useToast();
 
 const modules = [Pagination];
-const swiperOptions = {
+
+const paginationOptions = {
   clickable: true,
+  renderBullet(index: number, className: string) {
+    const category = categoriesWithNominees.value[index];
+    const categoryHasBeenVoted = category
+      ? selectedNominees[category.id]
+      : false;
+
+    return `<span class="${className} ${
+      categoryHasBeenVoted ? "voted" : ""
+    }"></span>`;
+  },
 };
 
 let selectedNominees = reactive({});
 const categoriesWithNominees = ref<CategoryWithNominees[]>([]);
 const userVotes = ref<Vote[]>([]);
+const swiperInstance = ref<typeof Swiper>();
+
+const onSwiper = (swiper: typeof Swiper) => {
+  swiperInstance.value = swiper;
+};
 
 onMounted(async () => {
   const [categories, currentVotes] = await Promise.all([
@@ -104,6 +125,8 @@ async function voteForCategory(category: Category["id"]) {
 
   await voteService.registerVote(vote);
 
+  swiperInstance.value?.slideNext();
+
   toast.success(
     `Voto ${
       previousVoteForThisCategory ? "atualizado" : "registrado"
@@ -117,5 +140,14 @@ async function voteForCategory(category: Category["id"]) {
   --swiper-pagination-bullet-inactive-color: #fff;
   --swiper-pagination-color: #fbb138;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+}
+
+.voted.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+.voted {
+  background-color: var(--swiper-pagination-color);
+  opacity: 0.4;
 }
 </style>
