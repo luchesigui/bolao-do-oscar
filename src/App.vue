@@ -22,6 +22,9 @@
             <li>
               <router-link to="/">Dashboard</router-link>
             </li>
+            <li v-if="userStore.isAdmin">
+              <router-link to="/ganhadores">Ganhadores</router-link>
+            </li>
             <li>
               <router-link to="/votacao">Votação</router-link>
             </li>
