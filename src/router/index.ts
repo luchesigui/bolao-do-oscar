@@ -26,3 +26,18 @@ router.beforeEach(async (to, _, next) => {
 
   next();
 });
+
+router.beforeEach(async (to, _, next) => {
+  const userStore = useUserStore();
+  const isAdminOnly = to.matched.some((record) => record.meta.adminOnly);
+  const isAdmin =
+    userStore.isAdmin ||
+    ((await userStore.getCurrentUser()) && userStore.isAdmin);
+
+  if (isAdminOnly && !isAdmin) {
+    next("/");
+    return;
+  }
+
+  next();
+});

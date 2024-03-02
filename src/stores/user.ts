@@ -24,6 +24,9 @@ export const useUserStore = defineStore("user", {
     isSignedIn(state) {
       return state.user !== null;
     },
+    isAdmin(state) {
+      return state.user?.app_metadata.userrole === "admin";
+    },
   },
   actions: {
     async register(signUpData: SignUpData) {
