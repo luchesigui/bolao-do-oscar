@@ -14,7 +14,6 @@
     "@formkit/vue": "^1.5.2",
     "@supabase/supabase-js": "^2.39.3",
     "@vueform/vueform": "^1.7.1",
-    "firebase": "^9.6.6",
     "pinia": "^2.1.7",
     "swiper": "^10.3.1",
     "uuid": "^8.3.2",
