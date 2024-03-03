@@ -1,5 +1,5 @@
-import { Category } from "./category.type";
-import { Movie } from "./movie.type";
+import { Category } from './category.type';
+import { Movie } from './movie.type';
 
 export type Nominee = {
   id: number;

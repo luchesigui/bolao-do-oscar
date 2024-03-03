@@ -1,7 +1,7 @@
-import { User } from "@supabase/supabase-js";
-import { defineStore } from "pinia";
-import { router } from "../router";
-import { authService } from "../service/auth";
+import { User } from '@supabase/supabase-js';
+import { defineStore } from 'pinia';
+import { router } from '../router';
+import { authService } from '../service/auth';
 
 export type LoginData = {
   username: string;
@@ -16,7 +16,7 @@ type UserState = {
   user: User | null;
 };
 
-export const useUserStore = defineStore("user", {
+export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     user: null,
   }),
@@ -25,7 +25,7 @@ export const useUserStore = defineStore("user", {
       return state.user !== null;
     },
     isAdmin(state) {
-      return state.user?.app_metadata.userrole === "admin";
+      return state.user?.app_metadata.userrole === 'admin';
     },
   },
   actions: {
@@ -34,9 +34,9 @@ export const useUserStore = defineStore("user", {
 
       if (response) {
         this.user = response.user;
-        router.push("/votacao");
+        router.push('/votacao');
       } else {
-        throw new Error("Unable to register user");
+        throw new Error('Unable to register user');
       }
     },
     async logIn({ username, password }: LoginData) {
@@ -44,15 +44,15 @@ export const useUserStore = defineStore("user", {
 
       if (response) {
         this.user = response.user;
-        router.push("/votacao");
+        router.push('/votacao');
       } else {
-        throw new Error("login failed");
+        throw new Error('login failed');
       }
     },
     async signOut() {
       await authService.signOut();
       this.user = null;
-      router.push("/login");
+      router.push('/login');
     },
     async getCurrentUser() {
       return new Promise((resolve) => {

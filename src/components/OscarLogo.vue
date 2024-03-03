@@ -1,3 +1,3 @@
 <template>
-  <img src="../assets/oscar.svg">
+  <img src="../assets/oscar.svg" />
 </template>

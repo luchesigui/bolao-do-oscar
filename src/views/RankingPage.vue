@@ -1,13 +1,7 @@
 <template>
-  <div class="container flex flex-col w-full">
-    <img
-      src="../assets/award.svg"
-      alt="Award"
-      class="max-w-[320px] mx-auto"
-    >
-    <h1 class="text-xl text-center mt-6 mb-4">
-      Ranking
-    </h1>
+  <div class="container flex w-full flex-col">
+    <img src="../assets/award.svg" alt="Award" class="mx-auto max-w-[320px]" />
+    <h1 class="mb-4 mt-6 text-center text-xl">Ranking</h1>
 
     <div class="ranking">
       <div
@@ -20,14 +14,14 @@
           'rounded-bl rounded-br': index === positions.length - 1,
         }"
       >
-        <div class="px-3 py-1 min-w-[40px] text-center">
+        <div class="min-w-[40px] px-3 py-1 text-center">
           {{ position.position }}
         </div>
-        <div class="px-3 py-1 border-x flex-1">
+        <div class="flex-1 border-x px-3 py-1">
           {{ position.user }}
         </div>
-        <div class="px-3 py-1 min-w-[100px] text-center">
-          {{ position.points }} {{ position.points <= 1 ? "ponto" : "pontos" }}
+        <div class="min-w-[100px] px-3 py-1 text-center">
+          {{ position.points }} {{ position.points <= 1 ? 'ponto' : 'pontos' }}
         </div>
       </div>
     </div>
@@ -35,10 +29,10 @@
 </template>
 
 <script lang="ts">
-import { rankingService } from "../service";
+import { rankingService } from '../service';
 
 export default {
-  name: "RankingPage",
+  name: 'RankingPage',
   data() {
     return {
       positions: [],

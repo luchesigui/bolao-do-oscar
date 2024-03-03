@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router';
 
-import { useUserStore } from "../stores/user";
-import { routes } from "./routes";
+import { useUserStore } from '../stores/user';
+import { routes } from './routes';
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -15,12 +15,12 @@ router.beforeEach(async (to, _, next) => {
   const isSignedIn = userStore.isSignedIn || (await userStore.getCurrentUser());
 
   if (requiresAuth && !isSignedIn) {
-    next("/login");
+    next('/login');
     return;
   }
 
   if (onlySignedOut && isSignedIn) {
-    next("/");
+    next('/');
     return;
   }
 
@@ -35,7 +35,7 @@ router.beforeEach(async (to, _, next) => {
     ((await userStore.getCurrentUser()) && userStore.isAdmin);
 
   if (isAdminOnly && !isAdmin) {
-    next("/");
+    next('/');
     return;
   }
 

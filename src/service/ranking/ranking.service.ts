@@ -1,7 +1,7 @@
-import { Ranking } from "../../types";
-import { User } from "../../types/user.type";
-import { categoryService } from "../categories";
-import { voteService } from "../votes";
+import { Ranking } from '../../types';
+import { User } from '../../types/user.type';
+import { categoryService } from '../categories';
+import { voteService } from '../votes';
 
 export const rankingService = {
   getPositions: async () => {
@@ -11,7 +11,7 @@ export const rankingService = {
     ]);
 
     const categoryWinners = new Set(
-      categories.map((category) => category.winner)
+      categories.map((category) => category.winner),
     );
 
     const participants = votes.reduce((acc, vote) => {
@@ -20,21 +20,21 @@ export const rankingService = {
       }
 
       return acc.set(vote.user.id, vote.user);
-    }, new Map<User["id"], User>([]));
+    }, new Map<User['id'], User>([]));
 
     const positions = Array.from(participants.values()).map(
       (participant, index): Ranking => {
         const votesByParticipant = votes.filter(
-          (vote) => vote.user.id === participant.id
+          (vote) => vote.user.id === participant.id,
         );
         const points = votesByParticipant.reduce(
           (acc, vote) =>
             categoryWinners.has(
-              typeof vote.nominee === "number" ? vote.nominee : vote.nominee.id
+              typeof vote.nominee === 'number' ? vote.nominee : vote.nominee.id,
             )
               ? acc + 1
               : acc,
-          0
+          0,
         );
 
         return {
@@ -42,7 +42,7 @@ export const rankingService = {
           user: participant.name,
           points,
         };
-      }
+      },
     );
 
     const sortedPositions = rankingService.sortPositions(positions);

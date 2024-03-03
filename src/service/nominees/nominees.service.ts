@@ -1,4 +1,4 @@
-import { supabaseProvider as provider } from "../../providers/supabase";
+import { supabaseProvider as provider } from '../../providers/supabase';
 
 export const nomineeService = {
   getByCategories: async (categoryIds: number[]) => {

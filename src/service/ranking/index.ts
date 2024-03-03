@@ -1,1 +1,1 @@
-export * from "./ranking.service";
+export * from './ranking.service';

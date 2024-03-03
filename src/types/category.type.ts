@@ -1,4 +1,4 @@
-import type { Nominee } from "./nominee.type";
+import type { Nominee } from './nominee.type';
 
 export type Category = {
   id: number;

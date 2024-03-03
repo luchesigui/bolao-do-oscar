@@ -1,1 +1,1 @@
-export { supabaseProvider } from "./models";
+export { supabaseProvider } from './models';

@@ -1,14 +1,14 @@
-import { Nominee } from "../../../types";
-import { Category } from "../../../types/category.type";
+import { Nominee } from '../../../types';
+import { Category } from '../../../types/category.type';
 
-import { supabase } from "../client";
+import { supabase } from '../client';
 
 export const categories = {
   async getAll() {
     const { data, error } = await supabase
-      .from("event_categories")
-      .select("id, winner, category(id, name)")
-      .eq("event", "1");
+      .from('event_categories')
+      .select('id, winner, category(id, name)')
+      .eq('event', '1');
 
     if (error) {
       throw error;
@@ -25,11 +25,11 @@ export const categories = {
 
     return categories as unknown as Category[];
   },
-  async setWinner(categoryId: Category["id"], winnerId: Nominee["id"]) {
+  async setWinner(categoryId: Category['id'], winnerId: Nominee['id']) {
     const { data, error } = await supabase
-      .from("event_categories")
+      .from('event_categories')
       .update({ winner: winnerId })
-      .eq("category", categoryId);
+      .eq('category', categoryId);
 
     if (error) {
       throw error;

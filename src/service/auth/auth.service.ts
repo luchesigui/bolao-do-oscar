@@ -1,6 +1,6 @@
-import { supabaseProvider as provider } from "../../providers/supabase";
-import { AuthChangeCallaback } from "../../providers/supabase/models/auth";
-import { SignUpData } from "../../stores";
+import { supabaseProvider as provider } from '../../providers/supabase';
+import { AuthChangeCallaback } from '../../providers/supabase/models/auth';
+import { SignUpData } from '../../stores';
 
 export const authService = {
   async signUp(signUpData: SignUpData) {

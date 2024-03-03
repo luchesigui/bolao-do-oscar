@@ -1,14 +1,14 @@
-import { Category } from "../../../types/category.type";
-import { Nominee } from "../../../types/nominee.type";
+import { Category } from '../../../types/category.type';
+import { Nominee } from '../../../types/nominee.type';
 
-import { supabase } from "../client";
+import { supabase } from '../client';
 
 export const nominees = {
   async getByCategories(categoryIds: number[]) {
     const { data, error } = await supabase
-      .from("nominees")
-      .select("id, name, category(id, name), movie(id, name)")
-      .in("category", categoryIds);
+      .from('nominees')
+      .select('id, name, category(id, name), movie(id, name)')
+      .in('category', categoryIds);
 
     if (error) {
       throw error;
@@ -18,9 +18,9 @@ export const nominees = {
   },
   async getByCategory(categoryId: number) {
     const { data, error } = await supabase
-      .from("nominees")
-      .select("id, name, category(id, name), movie(id, name)")
-      .eq("category", categoryId);
+      .from('nominees')
+      .select('id, name, category(id, name), movie(id, name)')
+      .eq('category', categoryId);
 
     if (error) {
       throw error;
@@ -29,7 +29,7 @@ export const nominees = {
     return data as unknown as Nominee[];
   },
   groupByCategory(nominees: Nominee[]) {
-    const nomineesByCategory = new Map<Category["id"], Nominee[]>();
+    const nomineesByCategory = new Map<Category['id'], Nominee[]>();
 
     nominees.forEach((nominee) => {
       const nomineesByCategoryMapKey = nominee.category.id;

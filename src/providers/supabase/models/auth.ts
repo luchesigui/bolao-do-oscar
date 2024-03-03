@@ -1,6 +1,6 @@
-import { AuthChangeEvent, Session, User } from "@supabase/supabase-js";
-import { SignUpData } from "../../../stores";
-import { supabase } from "../client";
+import { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
+import { SignUpData } from '../../../stores';
+import { supabase } from '../client';
 
 export type AuthChangeCallaback = (user: User) => void;
 
@@ -11,7 +11,7 @@ export const auth = {
       password,
     });
     if (error || !data) {
-      console.error("Error signing up:", error);
+      console.error('Error signing up:', error);
 
       return {
         user: null,
@@ -24,13 +24,13 @@ export const auth = {
     return data;
   },
   async saveUserName(userId: string, name: string) {
-    const { data, error } = await supabase.from("users").upsert({
+    const { data, error } = await supabase.from('users').upsert({
       id: userId,
       name,
     });
 
     if (error) {
-      console.error("Error saving user name:", error);
+      console.error('Error saving user name:', error);
     }
 
     return data;
@@ -42,7 +42,7 @@ export const auth = {
     });
 
     if (error) {
-      console.error("Error signing in:", error);
+      console.error('Error signing in:', error);
 
       return {
         user: null,
@@ -64,7 +64,7 @@ export const auth = {
         }
 
         callback(null);
-      }
+      },
     );
   },
 };
