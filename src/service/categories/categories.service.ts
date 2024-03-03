@@ -1,4 +1,5 @@
 import { supabaseProvider as provider } from "../../providers/supabase";
+import { Nominee } from "../../types";
 import { Category, CategoryWithNominees } from "../../types/category.type";
 import { nomineeService } from "../nominees";
 
@@ -20,5 +21,8 @@ export const categoryService = {
     }));
 
     return categoriesWithNominees;
+  },
+  async setWinner(categoryId: Category["id"], winnerId: Nominee["id"]) {
+    return provider.categories.setWinner(categoryId, winnerId);
   },
 };

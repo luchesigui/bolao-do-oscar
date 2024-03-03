@@ -1,3 +1,4 @@
+import { Nominee } from "../../../types";
 import { Category } from "../../../types/category.type";
 
 import { supabase } from "../client";
@@ -23,5 +24,17 @@ export const categories = {
     });
 
     return categories as unknown as Category[];
+  },
+  async setWinner(categoryId: Category["id"], winnerId: Nominee["id"]) {
+    const { data, error } = await supabase
+      .from("event_categories")
+      .update({ winner: winnerId })
+      .eq("category", categoryId);
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
   },
 };

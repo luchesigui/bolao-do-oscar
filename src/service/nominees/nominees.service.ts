@@ -6,4 +6,8 @@ export const nomineeService = {
     const nomineesByCategory = provider.nominees.groupByCategory(nominees);
     return nomineesByCategory;
   },
+  getByCategory: async (categoryId: number) => {
+    const nominees = await provider.nominees.getByCategory(categoryId);
+    return nominees;
+  },
 };

@@ -16,6 +16,18 @@ export const nominees = {
 
     return data as unknown as Nominee[];
   },
+  async getByCategory(categoryId: number) {
+    const { data, error } = await supabase
+      .from("nominees")
+      .select("id, name, category(id, name), movie(id, name)")
+      .eq("category", categoryId);
+
+    if (error) {
+      throw error;
+    }
+
+    return data as unknown as Nominee[];
+  },
   groupByCategory(nominees: Nominee[]) {
     const nomineesByCategory = new Map<Category["id"], Nominee[]>();
 
