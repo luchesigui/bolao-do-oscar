@@ -1,30 +1,30 @@
 <template>
   <div class="container">
     <FormKit
+      v-model="selectedCategory"
       type="select"
       label="Which country is the smallest?"
-      v-model="selectedCategory"
       :options="categoriesOptions"
     />
 
-    <form @submit.prevent="setCategoryWinner" v-if="nomineesOptions.length">
-      <div v-for="nominee in nomineesOptions">
+    <form v-if="nomineesOptions.length" @submit.prevent="setCategoryWinner">
+      <div v-for="nominee in nomineesOptions" :key="nominee.id">
         <label
           class="flex cursor-pointer block py-2 px-3 border border-stone-50 rounded my-2 focus:bg-[#fbb138] focus:text-black focus:font-bold focus:border-transparent transition-all"
-          v-bind:class="{
+          :class="{
             'bg-[#fbb138] text-black font-bold border-transparent':
               selectedNominee === nominee.movie.id,
           }"
         >
           <input
+            v-model="selectedNominee"
             type="radio"
             name="nominee"
             :value="nominee.id"
-            v-model="selectedNominee"
             class="mr-3"
           />
 
-          <div class="inline-flex flex-col" v-if="nominee.name">
+          <div v-if="nominee.name" class="inline-flex flex-col">
             {{ nominee.name }}
             <small class="italic">{{ nominee.movie.name }}</small>
           </div>
@@ -45,7 +45,12 @@
 import { onMounted, ref, watch } from "vue";
 import { categoryService, nomineeService } from "../service";
 
-const categoriesOptions = ref([]);
+const categoriesOptions = ref([
+  {
+    label: "Select a category",
+    value: "",
+  },
+]);
 const selectedCategory = ref("");
 const nomineesOptions = ref([]);
 const selectedNominee = ref("");
@@ -61,13 +66,10 @@ onMounted(async () => {
   const categories = await categoryService.getAll();
 
   categoriesOptions.value = [
-    {
-      label: "Select a category",
-      value: "",
-    },
+    ...categoriesOptions.value,
     ...categories.map((category) => ({
       label: category.name,
-      value: category.id,
+      value: category.id.toString(),
     })),
   ];
 });

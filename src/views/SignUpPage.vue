@@ -17,14 +17,15 @@ async function register(values: SignUpData) {
 <template>
   <div class="container">
     <div class="text-center mb-10">
-      <h1 class="text-xl font-bold mb-2">Bolão do Oscar {{ currentYear }}</h1>
+      <h1 class="text-xl font-bold mb-2">
+        Bolão do Oscar {{ currentYear }}
+      </h1>
       <p>Faça seu cadastro para começar a votar</p>
     </div>
 
     <FormKit
       type="form"
-      className="w-full"
-      @submit="register"
+      class-name="w-full"
       submit-label="Entrar"
       :actions="false"
       :config="{
@@ -36,6 +37,7 @@ async function register(values: SignUpData) {
           'bg-blue-500': true,
         },
       }"
+      @submit="register"
     >
       <FormKit
         type="text"
@@ -91,11 +93,13 @@ async function register(values: SignUpData) {
       />
     </FormKit>
 
-    <hr class="my-8 mx-auto max-w-[50%]" />
+    <hr class="my-8 mx-auto max-w-[50%]">
 
     <div class="text-center mb-4">
       <p class="text-sm">
-        Já tem uma conta? <router-link to="/">Entrar</router-link>
+        Já tem uma conta? <router-link to="/">
+          Entrar
+        </router-link>
       </p>
     </div>
   </div>

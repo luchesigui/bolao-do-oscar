@@ -1,9 +1,9 @@
-import Home from "@/views/Home.vue";
-import Ranking from "@/views/Ranking.vue";
-import SignIn from "@/views/SignIn.vue";
-import SignUp from "@/views/SignUp.vue";
-import Voting from "@/views/Voting.vue";
-import Winners from "@/views/Winners.vue";
+import Home from "@/views/HomePage.vue";
+import Ranking from "@/views/RankingPage.vue";
+import SignIn from "@/views/SignInPage.vue";
+import SignUp from "@/views/SignUpPage.vue";
+import Voting from "@/views/VotingPage.vue";
+import Winners from "@/views/WinnersPage.vue";
 
 export const routes = [
   { path: "/", component: Home, meta: { requiresAuth: true } },

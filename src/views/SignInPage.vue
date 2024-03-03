@@ -16,14 +16,15 @@ async function login(values: LoginData) {
 <template>
   <div class="container">
     <div class="text-center mb-10">
-      <h1 class="text-xl font-bold mb-2">Bolão do Oscar {{ currentYear }}</h1>
+      <h1 class="text-xl font-bold mb-2">
+        Bolão do Oscar {{ currentYear }}
+      </h1>
       <p>Faça o login para começar a votar</p>
     </div>
 
     <FormKit
       type="form"
-      className="w-full"
-      @submit="login"
+      class-name="w-full"
       submit-label="Entrar"
       :actions="false"
       :config="{
@@ -35,6 +36,7 @@ async function login(values: LoginData) {
           'bg-blue-500': true,
         },
       }"
+      @submit="login"
     >
       <FormKit
         type="email"
@@ -78,11 +80,13 @@ async function login(values: LoginData) {
       />
     </FormKit>
 
-    <hr class="my-8 mx-auto max-w-[50%]" />
+    <hr class="my-8 mx-auto max-w-[50%]">
 
     <div class="text-center mb-4">
       <p class="text-sm">
-        Não tem uma conta? <router-link to="/cadastro">Cadastre-se</router-link>
+        Não tem uma conta? <router-link to="/cadastro">
+          Cadastre-se
+        </router-link>
       </p>
     </div>
   </div>

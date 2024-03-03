@@ -1,5 +1,7 @@
 <template>
-  <h1 class="text-xl font-bold">{{ categoryName }}</h1>
+  <h1 class="text-xl font-bold">
+    {{ categoryName }}
+  </h1>
   <small class="block mb-5 italic">{{ translatedCategoryName }}</small>
 </template>
 

@@ -6,27 +6,34 @@
       :pagination="paginationOptions"
       @swiper="onSwiper"
     >
-      <swiper-slide v-for="category in categoriesWithNominees">
+      <swiper-slide
+        v-for="category in categoriesWithNominees"
+        :key="category.id"
+      >
         <category-name :category-name="category.name" />
 
         <form @submit.prevent="() => voteForCategory(category.id)">
-          <div class="nominee" v-for="nominee in category.nominees">
+          <div
+            v-for="nominee in category.nominees"
+            :key="nominee.id"
+            class="nominee"
+          >
             <label
               class="flex cursor-pointer block py-2 px-3 border border-stone-50 rounded my-2 focus:bg-[#fbb138] focus:text-black focus:font-bold focus:border-transparent transition-all"
-              v-bind:class="{
+              :class="{
                 'bg-[#fbb138] text-black font-bold border-transparent':
                   selectedNominees[category.id] === nominee.movie.id,
               }"
             >
               <input
+                v-model="selectedNominees[category.id]"
                 type="radio"
                 name="nominee"
                 :value="nominee.id"
-                v-model="selectedNominees[category.id]"
                 class="mr-3"
               />
 
-              <div class="inline-flex flex-col" v-if="nominee.name">
+              <div v-if="nominee.name" class="inline-flex flex-col">
                 {{ nominee.name }}
                 <small class="italic">{{ nominee.movie.name }}</small>
               </div>
