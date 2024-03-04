@@ -11,43 +11,12 @@
         :key="category.id"
       >
         <category-name :category-name="category.name" />
-
-        <form @submit.prevent="() => voteForCategory(category.id)">
-          <div
-            v-for="nominee in category.nominees"
-            :key="nominee.id"
-            class="nominee"
-          >
-            <label
-              class="my-2 block flex cursor-pointer rounded border border-stone-50 px-3 py-2 transition-all focus:border-transparent focus:bg-[#fbb138] focus:font-bold focus:text-black"
-              :class="{
-                'border-transparent bg-[#fbb138] font-bold text-black':
-                  selectedNominees[category.id] === nominee.movie.id,
-              }"
-            >
-              <input
-                v-model="selectedNominees[category.id]"
-                type="radio"
-                name="nominee"
-                :value="nominee.id"
-                class="mr-3"
-              />
-
-              <div v-if="nominee.name" class="inline-flex flex-col">
-                {{ nominee.name }}
-                <small class="italic">{{ nominee.movie.name }}</small>
-              </div>
-              <span v-else>{{ nominee.movie.name }}</span>
-            </label>
-          </div>
-
-          <button
-            type="submit"
-            class="mb-10 mt-2 w-full rounded bg-[#fbb138] px-2 py-2 font-bold uppercase tracking-widest disabled:border disabled:border-zinc-900 disabled:bg-zinc-600 disabled:text-zinc-400"
-          >
-            Votar
-          </button>
-        </form>
+        <nominee-form
+          :category-id="category.id"
+          :nominees="category.nominees"
+          :selected-nominee-id="selectedNominees[category.id]"
+          :on-select="voteForCategory"
+        />
       </swiper-slide>
     </swiper>
   </div>
@@ -63,9 +32,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import CategoryName from '@/components/CategoryName.vue';
+import NomineeForm from '@/components/nominee-form.vue';
 import { categoryService, voteService } from '@/services';
 import { useUserStore } from '@/stores';
-import type { Category, CategoryWithNominees, Vote } from '@/types';
+import type { Category, CategoryWithNominees, Nominee, Vote } from '@/types';
 
 const { user } = useUserStore();
 const toast = useToast();
@@ -86,7 +56,7 @@ const paginationOptions = {
   },
 };
 
-let selectedNominees = reactive({});
+let selectedNominees = reactive<Record<Category['id'], Nominee['id']>>({});
 const categoriesWithNominees = ref<CategoryWithNominees[]>([]);
 const userVotes = ref<Vote[]>([]);
 const swiperInstance = ref<typeof Swiper>();
@@ -114,14 +84,19 @@ onMounted(async () => {
   }, {});
 });
 
-async function voteForCategory(category: Category['id']) {
+async function voteForCategory(
+  categoryId: Category['id'],
+  selectedNomineeId: Nominee['id'],
+) {
   const previousVoteForThisCategory = userVotes.value.find(
-    (vote) => vote.category === category,
+    (vote) => vote.category === categoryId,
   );
 
+  selectedNominees[categoryId] = selectedNomineeId;
+
   const vote: Vote = {
-    category,
-    nominee: selectedNominees[category],
+    category: categoryId,
+    nominee: selectedNomineeId,
     user: user.id,
   };
 
