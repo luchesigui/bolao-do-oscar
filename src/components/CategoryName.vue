@@ -42,7 +42,5 @@ const traducoes = new Map([
   ['Best Animated Short', 'Melhor Animação Curta-Metragem'],
 ]);
 
-const translatedCategoryName = computed(() => {
-  return traducoes.get(categoryName);
-});
+const translatedCategoryName = computed(() => traducoes.get(categoryName));
 </script>
