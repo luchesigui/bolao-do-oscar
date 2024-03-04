@@ -1,6 +1,6 @@
 <template>
   <div class="container flex w-full flex-col">
-    <img src="../assets/award.svg" alt="Award" class="mx-auto max-w-[320px]" />
+    <img :src="rankingImage" alt="Award" class="mx-auto max-w-[320px]" />
     <h1 class="mb-4 mt-6 text-center text-xl">Ranking</h1>
 
     <div class="ranking">
@@ -28,24 +28,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { rankingService } from '@/services';
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue';
 
-export default {
-  name: 'RankingPage',
-  data() {
-    return {
-      positions: [],
-    };
-  },
-  async mounted() {
-    this.loadPositions();
-  },
-  methods: {
-    async loadPositions() {
-      const positions = await rankingService.getPositions();
-      this.positions = positions;
-    },
-  },
-};
+import rankingImage from '@/assets/award.svg';
+import { rankingService } from '@/services';
+import { Ranking } from '@/types';
+
+const positions = ref<Ranking[]>([]);
+
+onMounted(async () => {
+  positions.value = await rankingService.getPositions();
+});
 </script>
