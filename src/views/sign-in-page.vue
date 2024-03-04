@@ -1,18 +1,3 @@
-<script lang="ts" setup>
-import { LoginData, useUserStore } from '@/stores';
-
-const currentYear = new Date().getFullYear();
-const userStore = useUserStore();
-
-async function login(values: LoginData) {
-  try {
-    await userStore.logIn(values);
-  } catch (error) {
-    console.log(error);
-  }
-}
-</script>
-
 <template>
   <div class="container">
     <div class="mb-10 text-center">
@@ -88,3 +73,18 @@ async function login(values: LoginData) {
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { LoginData, useUserStore } from '@/stores';
+
+const currentYear = new Date().getFullYear();
+const userStore = useUserStore();
+
+async function login(values: LoginData) {
+  try {
+    await userStore.logIn(values);
+  } catch (error) {
+    console.log(error);
+  }
+}
+</script>

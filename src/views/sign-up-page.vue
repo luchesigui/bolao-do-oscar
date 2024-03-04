@@ -1,19 +1,3 @@
-<script lang="ts" setup>
-import { SignUpData, useUserStore } from '@/stores';
-
-const userStore = useUserStore();
-
-const currentYear = new Date().getFullYear();
-
-async function register(values: SignUpData) {
-  try {
-    await userStore.register(values);
-  } catch (error) {
-    console.log(error);
-  }
-}
-</script>
-
 <template>
   <div class="container">
     <div class="mb-10 text-center">
@@ -100,3 +84,19 @@ async function register(values: SignUpData) {
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { SignUpData, useUserStore } from '@/stores';
+
+const userStore = useUserStore();
+
+const currentYear = new Date().getFullYear();
+
+async function register(values: SignUpData) {
+  try {
+    await userStore.register(values);
+  } catch (error) {
+    console.log(error);
+  }
+}
+</script>
