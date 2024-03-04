@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { rankingService } from '../service';
+import { rankingService } from '@/services';
 
 export default {
   name: 'RankingPage',

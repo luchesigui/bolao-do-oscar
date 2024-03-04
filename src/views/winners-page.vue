@@ -43,7 +43,8 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, watch } from 'vue';
-import { categoryService, nomineeService } from '../service';
+
+import { categoryService, nomineeService } from '@/services';
 
 const categoriesOptions = ref([
   {

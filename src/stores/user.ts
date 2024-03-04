@@ -1,7 +1,8 @@
 import { User } from '@supabase/supabase-js';
 import { defineStore } from 'pinia';
-import { router } from '../router';
-import { authService } from '../service/auth';
+
+import { router } from '@/router';
+import { authService } from '@/services';
 
 export type LoginData = {
   username: string;

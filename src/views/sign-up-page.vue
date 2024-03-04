@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { SignUpData, useUserStore } from '../stores';
+import { SignUpData, useUserStore } from '@/stores';
 
 const userStore = useUserStore();
 

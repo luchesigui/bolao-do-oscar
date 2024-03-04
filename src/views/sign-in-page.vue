@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { LoginData, useUserStore } from '../stores/user';
+import { LoginData, useUserStore } from '@/stores';
 
 const currentYear = new Date().getFullYear();
 const userStore = useUserStore();

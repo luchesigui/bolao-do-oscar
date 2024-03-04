@@ -1,8 +1,11 @@
 import { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
-import { SignUpData } from '../../../stores';
+
+import { SignUpData } from '@/stores';
+
 import { supabase } from '../client';
 
-export type AuthChangeCallaback = (user: User) => void;
+
+export type AuthChangeCallback = (user: User) => void;
 
 export const auth = {
   async signUp({ name, username, password }: SignUpData) {
@@ -55,7 +58,7 @@ export const auth = {
   async signOut() {
     await supabase.auth.signOut();
   },
-  onAuthStateChange(callback: AuthChangeCallaback) {
+  onAuthStateChange(callback: AuthChangeCallback) {
     return supabase.auth.onAuthStateChange(
       (_event: AuthChangeEvent, session: Session) => {
         if (session) {

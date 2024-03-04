@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import type { Category } from '../types/category.type';
+import type { Category } from '@/types';
 
 type CategoryNameProps = {
   categoryName: Category['name'];

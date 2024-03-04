@@ -62,10 +62,10 @@ import { useToast } from 'vue-toastification';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import CategoryName from '../components/CategoryName.vue';
-import { categoryService, voteService } from '../service';
-import { useUserStore } from '../stores/user';
-import type { Category, CategoryWithNominees, Vote } from '../types/';
+import CategoryName from '@/components/CategoryName.vue';
+import { categoryService, voteService } from '@/services';
+import { useUserStore } from '@/stores';
+import type { Category, CategoryWithNominees, Vote } from '@/types';
 
 const { user } = useUserStore();
 const toast = useToast();

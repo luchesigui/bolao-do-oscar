@@ -1,7 +1,8 @@
-import { User } from '../../../types/user.type';
-import { Vote, VoteWithUser } from '../../../types/vote.type';
+import { User, Vote, VoteWithUser } from '@/types';
 
 import { supabase } from '../client';
+
+
 
 export const votes = {
   async registerVote(vote: Vote) {

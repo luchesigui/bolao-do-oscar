@@ -1,7 +1,8 @@
-import { Nominee } from '../../../types';
-import { Category } from '../../../types/category.type';
+import type { Nominee, Category } from '@/types';
 
 import { supabase } from '../client';
+
+
 
 export const categories = {
   async getAll() {
