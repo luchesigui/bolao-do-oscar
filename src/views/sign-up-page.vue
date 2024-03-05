@@ -19,7 +19,7 @@
           'bg-blue-500': true,
         },
       }"
-      @submit="register"
+      @submit="userStore.register"
     >
       <FormKit
         type="text"
@@ -51,12 +51,13 @@
         type="password"
         name="password"
         placeholder="Senha"
-        validation="required"
+        validation="required|length:6"
         :outer-class="{
           'max-w-[20em]': false,
         }"
         :validation-messages="{
           required: 'Senha é obrigatória',
+          length: 'Senha precisa ter no mínimo 6 caracteres',
         }"
       />
 
@@ -86,17 +87,9 @@
 </template>
 
 <script lang="ts" setup>
-import { SignUpData, useUserStore } from '@/stores';
+import { useUserStore } from '@/stores';
 
 const userStore = useUserStore();
 
 const currentYear = new Date().getFullYear();
-
-async function register(values: SignUpData) {
-  try {
-    await userStore.register(values);
-  } catch (error) {
-    console.log(error);
-  }
-}
 </script>

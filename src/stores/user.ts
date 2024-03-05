@@ -1,8 +1,11 @@
 import { User } from '@supabase/supabase-js';
 import { defineStore } from 'pinia';
+import { useToast } from 'vue-toastification';
 
 import { router } from '@/router';
 import { authService } from '@/services';
+
+const toast = useToast();
 
 export type LoginData = {
   username: string;
@@ -31,23 +34,23 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     async register(signUpData: SignUpData) {
-      const response = await authService.signUp(signUpData);
+      try {
+        const response = await authService.signUp(signUpData);
 
-      if (response) {
         this.user = response.user;
         router.push('/votacao');
-      } else {
-        throw new Error('Unable to register user');
+      } catch {
+        toast.error('Não foi possível criar sua conta. Tente novamente.');
       }
     },
     async logIn({ username, password }: LoginData) {
-      const response = await authService.signIn(username, password);
+      try {
+        const response = await authService.signIn(username, password);
 
-      if (response) {
         this.user = response.user;
         router.push('/votacao');
-      } else {
-        throw new Error('login failed');
+      } catch {
+        toast.error('Usuário ou senha inválidos');
       }
     },
     async signOut() {

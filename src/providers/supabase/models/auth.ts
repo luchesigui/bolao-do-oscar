@@ -4,7 +4,6 @@ import { SignUpData } from '@/stores';
 
 import { supabase } from '../client';
 
-
 export type AuthChangeCallback = (user: User) => void;
 
 export const auth = {
@@ -13,13 +12,9 @@ export const auth = {
       email: username,
       password,
     });
-    if (error || !data) {
-      console.error('Error signing up:', error);
 
-      return {
-        user: null,
-        session: null,
-      };
+    if (error || !data) {
+      throw new Error('Error signing up');
     }
 
     await auth.saveUserName(data.user.id, name);
@@ -33,7 +28,7 @@ export const auth = {
     });
 
     if (error) {
-      console.error('Error saving user name:', error);
+      throw new Error('Error saving user name');
     }
 
     return data;
@@ -45,12 +40,7 @@ export const auth = {
     });
 
     if (error) {
-      console.error('Error signing in:', error);
-
-      return {
-        user: null,
-        session: null,
-      };
+      throw new Error('Error signing in');
     }
 
     return data;

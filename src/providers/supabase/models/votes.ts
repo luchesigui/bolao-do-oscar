@@ -2,8 +2,6 @@ import { User, Vote, VoteWithUser } from '@/types';
 
 import { supabase } from '../client';
 
-
-
 export const votes = {
   async registerVote(vote: Vote) {
     const { data, error } = await supabase.from('votes').upsert({
