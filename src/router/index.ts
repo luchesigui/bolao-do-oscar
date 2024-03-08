@@ -1,5 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+  NavigationGuardNext,
+  RouteLocationNormalized,
+  createRouter,
+  createWebHistory,
+} from 'vue-router';
 
+import { eventService } from '@/services';
 import { useUserStore } from '@/stores';
 
 import { routes } from './routes';
@@ -42,3 +48,19 @@ router.beforeEach(async (to, _, next) => {
 
   next();
 });
+
+export async function beforeEnterVoting(
+  _to: RouteLocationNormalized,
+  _from: RouteLocationNormalized,
+  next: NavigationGuardNext,
+) {
+  const event = await eventService.getEvent(1);
+  const eventHasStarted = new Date(event.starts_at) <= new Date();
+
+  if (eventHasStarted) {
+    next({ path: '/ranking' });
+    return;
+  }
+
+  next();
+}
