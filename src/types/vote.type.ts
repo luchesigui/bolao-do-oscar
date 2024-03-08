@@ -4,8 +4,8 @@ import { User } from './user.type';
 
 export type Vote = {
   id?: number;
-  category: Category | Category['id'];
-  nominee: Nominee | Nominee['id'];
+  category: Category['id'];
+  nominee: Nominee['id'];
   user: User['id'];
 };
 

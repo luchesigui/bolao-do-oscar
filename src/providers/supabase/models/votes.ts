@@ -26,18 +26,19 @@ export const votes = {
       throw error;
     }
 
-    return data as unknown as Vote[];
+    return data;
   },
   async getAll() {
     const { data, error } = await supabase
       .from('votes')
       .select('id, nominee, category, user(id, name)')
-      .eq('event', '1');
+      .eq('event', '1')
+      .returns<VoteWithUser[]>();
 
     if (error) {
       throw error;
     }
 
-    return data as unknown as VoteWithUser[];
+    return data;
   },
 };
