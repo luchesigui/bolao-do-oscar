@@ -28,12 +28,7 @@ export const rankingService = {
           (vote) => vote.user.id === participant.id,
         );
         const points = votesByParticipant.reduce(
-          (acc, vote) =>
-            categoryWinners.has(
-              typeof vote.nominee === 'number' ? vote.nominee : vote.nominee.id,
-            )
-              ? acc + 1
-              : acc,
+          (acc, vote) => (categoryWinners.has(vote.nominee) ? acc + 1 : acc),
           0,
         );
 

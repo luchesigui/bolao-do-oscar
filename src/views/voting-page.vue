@@ -76,9 +76,7 @@ onMounted(async () => {
     await categoryService.getCategorieWithNominees(categories);
 
   selectedNominees = currentVotes.reduce((acc, vote) => {
-    const categoryId =
-      typeof vote.category === 'number' ? vote.category : vote.category.id;
-
+    const categoryId = vote.category;
     acc[categoryId] = vote.nominee;
     return acc;
   }, {});

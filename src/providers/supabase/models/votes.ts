@@ -20,7 +20,8 @@ export const votes = {
       .from('votes')
       .select('id, nominee, category')
       .eq('event', '1')
-      .eq('user', userId);
+      .eq('user', userId)
+      .returns<Vote[]>();
 
     if (error) {
       throw error;
