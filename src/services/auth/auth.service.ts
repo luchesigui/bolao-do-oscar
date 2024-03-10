@@ -11,5 +11,11 @@ export const authService = {
   async signOut() {
     return provider.auth.signOut();
   },
+  async updatePassword(password: string) {
+    return provider.auth.updateUser({ password });
+  },
+  async resetPassword(email: string) {
+    return provider.auth.resetPassword(email);
+  },
   onAuthStateChange: provider.auth.onAuthStateChange,
 };

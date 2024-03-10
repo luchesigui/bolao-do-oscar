@@ -1,4 +1,9 @@
-import { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
+import {
+  AuthChangeEvent,
+  Session,
+  User,
+  UserAttributes,
+} from '@supabase/supabase-js';
 
 import { SignUpData } from '@/stores';
 
@@ -47,6 +52,26 @@ export const auth = {
   },
   async signOut() {
     await supabase.auth.signOut();
+  },
+  async updateUser(userData: UserAttributes) {
+    const { data, error } = await supabase.auth.updateUser(userData);
+
+    if (error) {
+      throw new Error('Error updating user');
+    }
+
+    return data;
+  },
+  async resetPassword(email: string) {
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/redefinir-senha`,
+    });
+
+    if (error) {
+      throw new Error('Error updating user');
+    }
+
+    return data;
   },
   onAuthStateChange(callback: AuthChangeCallback) {
     return supabase.auth.onAuthStateChange(

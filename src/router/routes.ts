@@ -1,4 +1,6 @@
+import ForgotPassword from '@/views/forgot-password-page.vue';
 import Home from '@/views/home-page.vue';
+import PasswordReset from '@/views/password-reset-page.vue';
 import Ranking from '@/views/ranking-page.vue';
 import SignIn from '@/views/sign-in-page.vue';
 import SignUp from '@/views/sign-up-page.vue';
@@ -11,6 +13,16 @@ export const routes = [
   { path: '/', component: Home, meta: { requiresAuth: true } },
   { path: '/login', component: SignIn, meta: { onlySignedOut: true } },
   { path: '/cadastro', component: SignUp, meta: { onlySignedOut: true } },
+  {
+    path: '/esqueci-minha-senha',
+    component: ForgotPassword,
+    meta: { onlySignedOut: true },
+  },
+  {
+    path: '/redefinir-senha',
+    component: PasswordReset,
+    meta: { requiresAuth: true },
+  },
   {
     path: '/votacao',
     component: Voting,
