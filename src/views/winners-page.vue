@@ -43,8 +43,10 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, watch } from 'vue';
+import { useToast } from 'vue-toastification';
 
 import { categoryService, nomineeService } from '@/services';
+const toast = useToast();
 
 const categoriesOptions = ref([
   {
@@ -57,10 +59,16 @@ const nomineesOptions = ref([]);
 const selectedNominee = ref('');
 
 async function setCategoryWinner() {
-  await categoryService.setWinner(
-    Number(selectedCategory.value),
-    Number(selectedNominee.value),
-  );
+  try {
+    await categoryService.setWinner(
+      Number(selectedCategory.value),
+      Number(selectedNominee.value),
+    );
+
+    toast.success('Voto registrado com sucesso');
+  } catch {
+    toast.error('Houve um problema registrando o ganhador');
+  }
 }
 
 onMounted(async () => {
