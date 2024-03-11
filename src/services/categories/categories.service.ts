@@ -24,4 +24,11 @@ export const categoryService = {
   async setWinner(categoryId: Category['id'], winnerId: Nominee['id']) {
     return provider.categories.setWinner(categoryId, winnerId);
   },
+  getWinners(categories: Category[]) {
+    const categoryWinners = new Set(
+      categories.map((category) => category.winner),
+    );
+
+    return categoryWinners;
+  },
 };

@@ -4,15 +4,21 @@ import { categoryService } from '../categories';
 import { voteService } from '../votes';
 
 export const rankingService = {
+  getVotingStatus: async () => {
+    const categories = await categoryService.getAll();
+    const categoryWinners = new Set(
+      categories.map((category) => category.winner),
+    );
+
+    return categoryWinners;
+  },
   getPositions: async () => {
     const [categories, votes] = await Promise.all([
       categoryService.getAll(),
       voteService.getAll(),
     ]);
 
-    const categoryWinners = new Set(
-      categories.map((category) => category.winner),
-    );
+    const categoryWinners = categoryService.getWinners(categories);
 
     const participants = votes.reduce((acc, vote) => {
       if (acc.has(vote.user.id)) {

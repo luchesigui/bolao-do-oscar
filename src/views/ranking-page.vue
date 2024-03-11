@@ -1,7 +1,13 @@
 <template>
   <div class="container flex w-full flex-col">
     <img :src="rankingImage" alt="Award" class="mx-auto max-w-[320px]" />
-    <h1 class="mb-4 mt-6 text-center text-xl">Ranking</h1>
+    <h1 class="mb-4 mt-6 text-center text-xl">
+      Ranking
+      <template v-if="categoriesAlreadyVoted > 0"
+        >- {{ categoriesAlreadyVoted }} contabilizados de
+        {{ categoriesLenght }} categorias</template
+      >
+    </h1>
 
     <div class="ranking">
       <div
@@ -32,12 +38,19 @@
 import { onMounted, ref } from 'vue';
 
 import rankingImage from '@/assets/award.svg';
-import { rankingService } from '@/services';
+import { categoryService, rankingService } from '@/services';
 import { Ranking } from '@/types';
 
 const positions = ref<Ranking[]>([]);
+const categoriesAlreadyVoted = ref(0);
+const categoriesLenght = ref(0);
 
 onMounted(async () => {
   positions.value = await rankingService.getPositions();
+  const categories = await categoryService.getAll();
+
+  const winners = categoryService.getWinners(categories);
+  categoriesLenght.value = categories.length;
+  categoriesAlreadyVoted.value = winners.size;
 });
 </script>
