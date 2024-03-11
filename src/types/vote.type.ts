@@ -12,3 +12,9 @@ export type Vote = {
 export type VoteWithUser = Vote & {
   user: User;
 };
+
+export type VoteWithInnerData = Omit<Vote, 'category' | 'nominee' | 'user'> & {
+  category: Category;
+  nominee: Nominee;
+  user: User;
+};

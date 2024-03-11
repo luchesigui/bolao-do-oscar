@@ -23,6 +23,9 @@
               <router-link to="/ganhadores"> Ganhadores </router-link>
             </li>
             <li>
+              <router-link to="/meus-votos"> Meus Votos </router-link>
+            </li>
+            <li>
               <router-link to="/votacao"> Votação </router-link>
             </li>
             <li>

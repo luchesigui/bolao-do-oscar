@@ -1,4 +1,4 @@
-import { User, Vote, VoteWithUser } from '@/types';
+import { User, Vote, VoteWithInnerData, VoteWithUser } from '@/types';
 
 import { supabase } from '../client';
 
@@ -22,6 +22,20 @@ export const votes = {
       .eq('event', '1')
       .eq('user', userId)
       .returns<Vote[]>();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  },
+  async getMyVotes(userId: User['id']) {
+    const { data, error } = await supabase
+      .from('votes')
+      .select('id, nominee(id, name, movie(id, name), category(id, name))')
+      .eq('event', '1')
+      .eq('user', userId)
+      .returns<VoteWithInnerData[]>();
 
     if (error) {
       throw error;

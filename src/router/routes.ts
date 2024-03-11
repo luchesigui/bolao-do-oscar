@@ -6,6 +6,7 @@ import SignIn from '@/views/sign-in-page.vue';
 import SignUp from '@/views/sign-up-page.vue';
 import Voting from '@/views/voting-page.vue';
 import Winners from '@/views/winners-page.vue';
+import MyVotes from '@/views/my-votes-page.vue';
 
 import { beforeEnterVoting } from '.';
 
@@ -29,6 +30,7 @@ export const routes = [
     meta: { requiresAuth: true },
     beforeEnter: beforeEnterVoting,
   },
+  { path: '/meus-votos', component: MyVotes, meta: { requiresAuth: true } },
   { path: '/ranking', component: Ranking, meta: { requiresAuth: true } },
   { path: '/ganhadores', component: Winners, meta: { adminOnly: true } },
 ];
