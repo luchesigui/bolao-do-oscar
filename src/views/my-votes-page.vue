@@ -20,9 +20,9 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 
-import type { VoteWithInnerData } from '@/types';
 import { voteService } from '@/services';
 import { useUserStore } from '@/stores';
+import type { VoteWithInnerData } from '@/types';
 
 const { user } = useUserStore();
 
@@ -30,6 +30,12 @@ const myVotes = ref<VoteWithInnerData[]>([]);
 
 onMounted(async () => {
   const votes = await voteService.getMyVotes(user.id);
-  myVotes.value = votes;
+  const orderedVotes = votes.sort((prevVote, nextVote) => {
+    return nextVote.nominee.category.name < prevVote.nominee.category.name
+      ? 1
+      : -1;
+  });
+
+  myVotes.value = orderedVotes;
 });
 </script>
