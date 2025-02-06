@@ -1,15 +1,13 @@
-import type { Nominee, Category } from '@/types';
+import type { Category, Nominee } from '@/types';
 
 import { supabase } from '../client';
-
-
 
 export const categories = {
   async getAll() {
     const { data, error } = await supabase
       .from('event_categories')
       .select('id, winner, category(id, name)')
-      .eq('event', '1');
+      .eq('event', 1);
 
     if (error) {
       throw error;

@@ -19,7 +19,7 @@ export const votes = {
     const { data, error } = await supabase
       .from('votes')
       .select('id, nominee, category')
-      .eq('event', '1')
+      .eq('event', 1)
       .eq('user', userId)
       .returns<Vote[]>();
 
@@ -33,7 +33,7 @@ export const votes = {
     const { data, error } = await supabase
       .from('votes')
       .select('id, nominee(id, name, movie(id, name), category(id, name))')
-      .eq('event', '1')
+      .eq('event', 1)
       .eq('user', userId)
       .returns<VoteWithInnerData[]>();
 
@@ -47,7 +47,7 @@ export const votes = {
     const { data, error } = await supabase
       .from('votes')
       .select('id, nominee, category, user(id, name)')
-      .eq('event', '1')
+      .eq('event', 1)
       .returns<VoteWithUser[]>();
 
     if (error) {
