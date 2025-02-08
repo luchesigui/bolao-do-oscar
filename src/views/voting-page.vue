@@ -10,7 +10,7 @@
         v-for="category in categoriesWithNominees"
         :key="category.id"
       >
-        <category-name :category-name="category.name" />
+        <category-name :category-name="category.category.name" />
         <nominee-form
           :category-id="category.id"
           :nominees="category.nominees"

@@ -12,13 +12,13 @@ export const categoryService = {
   async getCategorieWithNominees(
     categories: Category[],
   ): Promise<CategoryWithNominees[]> {
-    const categoryIds = categories.map((category) => category.id);
+    const categoryIds = categories.map((category) => category.category.id);
     const nomineesByCategory =
       await nomineeService.getByCategories(categoryIds);
 
     const categoriesWithNominees = categories.map((category) => ({
       ...category,
-      nominees: nomineesByCategory.get(category.id),
+      nominees: nomineesByCategory.get(category.category.id),
     }));
 
     return categoriesWithNominees;

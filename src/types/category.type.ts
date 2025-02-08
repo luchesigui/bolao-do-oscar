@@ -3,6 +3,10 @@ import type { Nominee } from './nominee.type';
 export type Category = {
   id: number;
   name: string;
+  category: {
+    id: number;
+    name: string;
+  };
   winner?: number;
 };
 

@@ -13,16 +13,7 @@ export const categories = {
       throw error;
     }
 
-    const categories = data.map((eventCategory) => {
-      const { category, ...eventCategoryProps } = eventCategory;
-
-      return {
-        ...category,
-        ...eventCategoryProps,
-      };
-    });
-
-    return categories as unknown as Category[];
+    return data as unknown as Category[];
   },
   async setWinner(categoryId: Category['id'], winnerId: Nominee['id']) {
     const { data, error } = await supabase
