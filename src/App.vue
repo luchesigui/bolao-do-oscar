@@ -47,10 +47,13 @@
     >
       <router-view />
     </main>
+    <Analytics />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { Analytics } from '@vercel/analytics/vue';
+
 import Logo from './components/OscarLogo.vue';
 import { useUserStore } from './stores/user';
 
