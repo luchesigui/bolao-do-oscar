@@ -77,8 +77,8 @@ onMounted(async () => {
   categoriesOptions.value = [
     ...categoriesOptions.value,
     ...categories.map((category) => ({
-      label: category.name,
-      value: category.id.toString(),
+      label: category.category.name,
+      value: category.category.id.toString(),
     })),
   ];
 });
