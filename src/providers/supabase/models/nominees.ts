@@ -2,14 +2,13 @@ import type { Category, Nominee } from '@/types';
 
 import { supabase } from '../client';
 
-
-
 export const nominees = {
-  async getByCategories(categoryIds: number[]) {
+  async getByCategories(categoryIds: number[], eventId: number) {
     const { data, error } = await supabase
       .from('nominees')
       .select('id, name, category(id, name), movie(id, name)')
-      .in('category', categoryIds);
+      .in('category', categoryIds)
+      .eq('event', eventId);
 
     if (error) {
       throw error;
@@ -17,11 +16,12 @@ export const nominees = {
 
     return data as unknown as Nominee[];
   },
-  async getByCategory(categoryId: number) {
+  async getByCategory(categoryId: number, eventId: number) {
     const { data, error } = await supabase
       .from('nominees')
       .select('id, name, category(id, name), movie(id, name)')
-      .eq('category', categoryId);
+      .eq('category', categoryId)
+      .eq('event', eventId);
 
     if (error) {
       throw error;

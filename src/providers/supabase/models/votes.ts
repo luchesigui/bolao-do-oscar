@@ -3,10 +3,10 @@ import { User, Vote, VoteWithInnerData, VoteWithUser } from '@/types';
 import { supabase } from '../client';
 
 export const votes = {
-  async registerVote(vote: Vote) {
+  async registerVote(vote: Vote, eventId: number) {
     const { data, error } = await supabase.from('votes').upsert({
       ...vote,
-      event: 1,
+      event: eventId,
     });
 
     if (error) {
@@ -15,11 +15,11 @@ export const votes = {
 
     return data;
   },
-  async getUserVotes(userId: User['id']) {
+  async getUserVotes(userId: User['id'], eventId: number) {
     const { data, error } = await supabase
       .from('votes')
       .select('id, nominee, category')
-      .eq('event', 1)
+      .eq('event', eventId)
       .eq('user', userId)
       .returns<Vote[]>();
 
@@ -29,11 +29,11 @@ export const votes = {
 
     return data;
   },
-  async getMyVotes(userId: User['id']) {
+  async getMyVotes(userId: User['id'], eventId: number) {
     const { data, error } = await supabase
       .from('votes')
       .select('id, nominee(id, name, movie(id, name), category(id, name))')
-      .eq('event', 1)
+      .eq('event', eventId)
       .eq('user', userId)
       .returns<VoteWithInnerData[]>();
 
@@ -43,11 +43,11 @@ export const votes = {
 
     return data;
   },
-  async getAll() {
+  async getAll(eventId: number) {
     const { data, error } = await supabase
       .from('votes')
       .select('id, nominee, category, user(id, name)')
-      .eq('event', 1)
+      .eq('event', eventId)
       .returns<VoteWithUser[]>();
 
     if (error) {

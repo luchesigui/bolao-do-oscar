@@ -1,18 +1,23 @@
 import { supabaseProvider as provider } from '../../providers/supabase';
 import type { User } from '../../types/user.type';
 import type { Vote } from '../../types/vote.type';
+import { eventService } from '../events';
 
 export const voteService = {
   registerVote: async (vote: Vote) => {
-    return provider.votes.registerVote(vote);
+    const latestEventId = await eventService.getLatestEventId();
+    return provider.votes.registerVote(vote, latestEventId);
   },
   getUserVotes: async (userId: User['id']) => {
-    return provider.votes.getUserVotes(userId);
+    const latestEventId = await eventService.getLatestEventId();
+    return provider.votes.getUserVotes(userId, latestEventId);
   },
   getMyVotes: async (userId: User['id']) => {
-    return provider.votes.getMyVotes(userId);
+    const latestEventId = await eventService.getLatestEventId();
+    return provider.votes.getMyVotes(userId, latestEventId);
   },
   getAll: async () => {
-    return provider.votes.getAll();
+    const latestEventId = await eventService.getLatestEventId();
+    return provider.votes.getAll(latestEventId);
   },
 };

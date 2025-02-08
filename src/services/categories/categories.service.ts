@@ -1,11 +1,13 @@
 import { supabaseProvider as provider } from '../../providers/supabase';
 import { Nominee } from '../../types';
 import { Category, CategoryWithNominees } from '../../types/category.type';
+import { eventService } from '../events';
 import { nomineeService } from '../nominees';
 
 export const categoryService = {
   getAll: async () => {
-    return provider.categories.getAll();
+    const latestEventId = await eventService.getLatestEventId();
+    return provider.categories.getAll(latestEventId);
   },
   async getCategorieWithNominees(
     categories: Category[],
