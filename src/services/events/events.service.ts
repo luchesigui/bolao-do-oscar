@@ -6,4 +6,7 @@ export const eventService = {
   getEvent: async (eventId: Event['id']) => {
     return provider.events.get(eventId);
   },
+  getLastEvent: async () => {
+    return provider.events.getLast();
+  },
 };

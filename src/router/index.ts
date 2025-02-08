@@ -54,7 +54,7 @@ export async function beforeEnterVoting(
   _from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) {
-  const event = await eventService.getEvent(1);
+  const event = await eventService.getLastEvent();
   const eventHasStarted = new Date(event.starts_at) <= new Date();
 
   if (eventHasStarted) {

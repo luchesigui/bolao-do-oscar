@@ -17,4 +17,18 @@ export const events = {
 
     return data;
   },
+  async getLast(): Promise<Event> {
+    const { data, error } = await supabase
+      .from('events')
+      .select('*')
+      .order('id', { ascending: false })
+      .limit(1)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  },
 };
