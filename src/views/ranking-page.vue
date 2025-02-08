@@ -47,10 +47,12 @@ const categoriesLenght = ref(0);
 
 onMounted(async () => {
   positions.value = await rankingService.getPositions();
+
   const categories = await categoryService.getAll();
 
-  const winners = categoryService.getWinners(categories);
+  const winnersCount = categoryService.getWinnersCount(categories);
+
   categoriesLenght.value = categories.length;
-  categoriesAlreadyVoted.value = winners.size;
+  categoriesAlreadyVoted.value = winnersCount;
 });
 </script>

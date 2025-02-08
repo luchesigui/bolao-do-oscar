@@ -27,10 +27,17 @@ export const categoryService = {
     return provider.categories.setWinner(categoryId, winnerId);
   },
   getWinners(categories: Category[]) {
-    const categoryWinners = new Set(
-      categories.map((category) => category.winner),
-    );
+    const categoryWinners = categories.reduce((acc, category) => {
+      if (category.winner) {
+        return [...acc, category.winner];
+      }
+
+      return acc;
+    }, []);
 
     return categoryWinners;
+  },
+  getWinnersCount(categories: Category[]) {
+    return categories.filter((category) => category.winner).length;
   },
 };
